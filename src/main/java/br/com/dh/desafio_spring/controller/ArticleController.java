@@ -21,6 +21,11 @@ public class ArticleController {
         articleService.save(article);
     }
 
+    @GetMapping(params = {"category", "freeShipping", "order"})
+    @ResponseStatus(HttpStatus.OK)
+    public List<Article> findAllByCategoryAndFreeShippingOrdered(@RequestParam String category, @RequestParam Boolean freeShipping, @RequestParam int order){
+        return articleService.findAllByCategoryAndFreeShippingOrdered(category, freeShipping, order);
+    }
     @GetMapping(params = {"category", "freeShipping"})
     @ResponseStatus(HttpStatus.OK)
     public List<Article> findAllByCategoryAndFreeShipping(@RequestParam String category, @RequestParam Boolean freeShipping){
