@@ -17,5 +17,6 @@ public class ArticleController {
     @ResponseStatus(HttpStatus.CREATED)
     public void saveArticle(@RequestBody Article article){
         articleService.save(article);
+        //articleService.save(article);
     }
 }
