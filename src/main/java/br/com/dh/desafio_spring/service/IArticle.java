@@ -11,4 +11,6 @@ public interface IArticle {
 
     List<Article> findAllByFreeShippingAndPrestige(Boolean freeShipping, String prestige);
     List<Article> findAllByCategoryAndFreeShippingOrdered(String category, Boolean freeShipping, int order);
+
+    List<Article> findByCategory(String category);
 }
