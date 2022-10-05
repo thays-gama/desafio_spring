@@ -21,11 +21,6 @@ public class ArticleService implements IArticle{
     public List<Article> getAll() {
       return repo.getAll();
     }
-    
-    @Override
-    public List<Article> getByAlphabeticOrder() {
-      return repo.getAll();
-    }
 
     @Override
     public List<Article> findAllByCategoryAndFreeShipping(String category, Boolean freeShipping) {
