@@ -2,7 +2,6 @@ package br.com.dh.desafio_spring.controller;
 
 import br.com.dh.desafio_spring.model.Article;
 import br.com.dh.desafio_spring.service.IArticle;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,5 +31,10 @@ public class ArticleController {
     @ResponseStatus(HttpStatus.OK)
     public List<Article> findAllByFreeShippingAndPrestige(@RequestParam Boolean freeShipping, @RequestParam String prestige){
         return articleService.findAllByFreeShippingAndPrestige(freeShipping, prestige);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Article>> getAllArticles(){
+        return new ResponseEntity<>(articleService.getAll(), HttpStatus.OK);
     }
 }
