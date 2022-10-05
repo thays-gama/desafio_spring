@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/articles")
 public class ArticleController {
@@ -17,5 +19,10 @@ public class ArticleController {
     @ResponseStatus(HttpStatus.CREATED)
     public void saveArticle(@RequestBody Article article){
         articleService.save(article);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Article>> getAllArticles(){
+        return new ResponseEntity<>(articleService.getAll(), HttpStatus.OK);
     }
 }
