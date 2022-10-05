@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -41,6 +40,7 @@ public class ArticleRepo {
 
         return null;
     }
+
     public List<Article> findAllByCategoryAndFreeShipping(String category, Boolean freeShipping){
         List<Article> articles = new ArrayList<>(getAll());
         return articles.stream()
@@ -60,5 +60,9 @@ public class ArticleRepo {
         return articles.stream()
                 .filter(item->item.getCategory().equalsIgnoreCase(category))
                 .collect(Collectors.toList());
+    }
+
+    public Article getArticleById(int productId){
+        return getAll().get(productId - 1);
     }
 }

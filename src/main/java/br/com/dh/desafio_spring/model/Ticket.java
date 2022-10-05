@@ -38,7 +38,13 @@ public class Ticket {
 
     public void sumArticle(){
         verifyArticles();
-        articles.stream().forEach(article -> this.total.add(article.getPrice()));
+        final BigDecimal[] result = {BigDecimal.ZERO};
+        final Double[] test2 = {0.0};
+        articles.forEach(article -> {
+            BigDecimal test = article.getPrice();
+            test2[0] += Double.parseDouble(String.valueOf(result[0].add(test.multiply(new BigDecimal(article.getQuantity())))));
+        });
+        this.total = BigDecimal.valueOf(test2[0]);
     }
 
     public void clearTicket(){
