@@ -38,4 +38,9 @@ public class ArticleController {
     public List<Article> findAllByFreeShippingAndPrestige(@RequestParam Boolean freeShipping, @RequestParam String prestige){
         return articleService.findAllByFreeShippingAndPrestige(freeShipping, prestige);
     }
+    
+    @GetMapping
+    public ResponseEntity<List<Article>> getByAlphabeticOrder(@RequestParam int order) {
+      return new ResponseEntity<>(articleService.getAll(), HttpStatus.OK);
+    }
 }
