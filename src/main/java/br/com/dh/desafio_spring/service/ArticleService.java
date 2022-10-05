@@ -32,4 +32,9 @@ public class ArticleService implements IArticle{
         return repo.findAllByFreeShippingAndPrestige(freeShipping,prestige);
     }
 
+    @Override
+    public List<Article> findByCategory(String category){
+        return repo.findByCategory(category);
+    }
+
 }

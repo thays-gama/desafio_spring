@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -51,6 +52,13 @@ public class ArticleRepo {
         List<Article> articles = new ArrayList<>(getAll());
         return articles.stream()
                 .filter(item-> item.isFreeShipping() == freeShipping && item.getPrestige().equals(prestige))
+                .collect(Collectors.toList());
+    }
+
+    public List<Article> findByCategory(String category){
+        List<Article> articles = new ArrayList<>(getAll());
+        return articles.stream()
+                .filter(item->item.getCategory().equalsIgnoreCase(category))
                 .collect(Collectors.toList());
     }
 }

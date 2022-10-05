@@ -37,4 +37,10 @@ public class ArticleController {
     public ResponseEntity<List<Article>> getAllArticles(){
         return new ResponseEntity<>(articleService.getAll(), HttpStatus.OK);
     }
+
+    @GetMapping(params = {"category"})
+    @ResponseStatus(HttpStatus.OK)
+    public List<Article>findByCategory(@RequestParam String category){
+        return articleService.findByCategory(category);
+    }
 }
