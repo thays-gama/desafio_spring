@@ -39,4 +39,8 @@ public class ArticleRepo {
 
         return null;
     }
+
+    public Article getArticleById(int productId){
+        return getAll().get(productId - 1);
+    }
 }
