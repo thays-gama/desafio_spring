@@ -10,4 +10,7 @@ public interface IArticle {
     List<Article> getAll();
 
     List<Article> getByAlphabeticOrder();
+    List<Article> findAllByCategoryAndFreeShipping(String category, Boolean freeShipping);
+
+    List<Article> findAllByFreeShippingAndPrestige(Boolean freeShipping, String prestige);
 }

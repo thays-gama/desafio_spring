@@ -10,6 +10,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class ArticleRepo {
@@ -38,5 +39,18 @@ public class ArticleRepo {
         }
 
         return null;
+    }
+    public List<Article> findAllByCategoryAndFreeShipping(String category, Boolean freeShipping){
+        List<Article> articles = new ArrayList<>(getAll());
+        return articles.stream()
+                .filter(item-> item.getCategory().equalsIgnoreCase(category) && item.isFreeShipping() == freeShipping)
+                .collect(Collectors.toList());
+    }
+
+    public List<Article> findAllByFreeShippingAndPrestige(Boolean freeShipping, String prestige) {
+        List<Article> articles = new ArrayList<>(getAll());
+        return articles.stream()
+                .filter(item-> item.isFreeShipping() == freeShipping && item.getPrestige().equals(prestige))
+                .collect(Collectors.toList());
     }
 }
