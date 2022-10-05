@@ -21,4 +21,15 @@ public class ArticleService implements IArticle{
     public List<Article> getAll() {
         return repo.getAll();
     }
+
+    @Override
+    public List<Article> findAllByCategoryAndFreeShipping(String category, Boolean freeShipping) {
+        return repo.findAllByCategoryAndFreeShipping(category, freeShipping);
+    }
+
+    @Override
+    public List<Article> findAllByFreeShippingAndPrestige(Boolean freeShipping, String prestige) {
+        return repo.findAllByFreeShippingAndPrestige(freeShipping,prestige);
+    }
+
 }

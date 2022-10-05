@@ -7,4 +7,7 @@ import java.util.List;
 public interface IArticle {
     void save(Article article);
     List<Article> getAll();
+    List<Article> findAllByCategoryAndFreeShipping(String category, Boolean freeShipping);
+
+    List<Article> findAllByFreeShippingAndPrestige(Boolean freeShipping, String prestige);
 }
