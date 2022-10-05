@@ -6,5 +6,8 @@ import java.util.List;
 
 public interface IArticle {
     void save(Article article);
+
     List<Article> getAll();
+
+    List<Article> getByAlphabeticOrder();
 }

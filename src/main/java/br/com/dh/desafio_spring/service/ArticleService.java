@@ -19,6 +19,11 @@ public class ArticleService implements IArticle{
 
     @Override
     public List<Article> getAll() {
-        return repo.getAll();
+      return repo.getAll();
+    }
+    
+    @Override
+    public List<Article> getByAlphabeticOrder() {
+      return repo.getAll();
     }
 }

@@ -22,7 +22,12 @@ public class ArticleController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Article>> getAllArticles(){
-        return new ResponseEntity<>(articleService.getAll(), HttpStatus.OK);
+    public ResponseEntity<List<Article>> getAllArticles() {
+      return new ResponseEntity<>(articleService.getAll(), HttpStatus.OK);
+    }
+    
+    @GetMapping
+    public ResponseEntity<List<Article>> getByAlphabeticOrder(@RequestParam int order) {
+      return new ResponseEntity<>(articleService.getAll(), HttpStatus.OK);
     }
 }
