@@ -44,17 +44,6 @@ public class ClientService implements IClient
     }
 
     @Override
-    public List<Client> getAll(){
-        return repo.getClients();
-    }
-    @Override
-    public List<Client> getByState(String state){
-        return repo.getClients().stream()
-                .filter(item-> item.getState().equalsIgnoreCase(state))
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public ClientDTO findById(Integer id){
         Optional<Client> client = repo.findById(id);
         if(client.isEmpty()){
@@ -95,5 +84,28 @@ public class ClientService implements IClient
             list.add("state");
         }
         return list;
+    }
+    @Override
+    public List<Client> getAll(){
+        List<Client> clients = repo.getClients();
+
+        if (clients.isEmpty()) {
+            throw new NotFoundException("Objeto não encontrado");
+        }
+
+        return clients;
+    }
+
+    @Override
+    public List<Client> getByState(String state){
+        List<Client> clients = this.getAll().stream()
+                .filter(item-> item.getState().equalsIgnoreCase(state))
+                .collect(Collectors.toList());
+
+        if (clients.isEmpty()) {
+            throw new NotFoundException("Cliente(s) não encontrado(s)");
+        }
+
+        return clients;
     }
 }
