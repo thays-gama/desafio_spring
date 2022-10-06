@@ -60,4 +60,13 @@ public class ClientService implements IClient
         }
         return list;
     }
+
+    public List<Client> getAll(){
+        return repo.getAll();
+    }
+    public List<Client> getByState(String state){
+        return repo.getAll().stream()
+                .filter(item-> item.getState().equalsIgnoreCase(state))
+                .collect(Collectors.toList());
+    }
 }

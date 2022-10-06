@@ -43,7 +43,7 @@ public class ClientRepo {
         return clients;
     }
 
-    private List<Client> getAll(){
+    public List<Client> getAll(){
         try{
             log.printf(Level.INFO, "Arquivo "+linkFile+" carregado");
             return Arrays.asList(mapper.readValue(new File(linkFile), Client[].class));
