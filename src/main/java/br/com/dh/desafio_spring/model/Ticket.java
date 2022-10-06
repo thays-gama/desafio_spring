@@ -1,5 +1,6 @@
 package br.com.dh.desafio_spring.model;
 
+import br.com.dh.desafio_spring.repository.ArticleRepo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,30 +22,48 @@ public class Ticket {
     public void addArticle(Article article){
         verifyArticles();
         articles.add(article);
+        updateInventory(article);
         sumArticle();
     }
 
     public void removeArticle(Article article){
         verifyArticles();
         articles.remove(article);
+        updateInventory(article, article.getQuantity());
         sumArticle();
     }
 
     public void removeArticle(int id){
         verifyArticles();
-        articles.remove(id);
+        updateInventory(articles.get(id - 1), articles.get(id - 1).getQuantity());
+        articles.remove(id - 1);
         sumArticle();
     }
 
     public void sumArticle(){
         verifyArticles();
-        final BigDecimal[] result = {BigDecimal.ZERO};
-        final Double[] test2 = {0.0};
+        BigDecimal result = BigDecimal.ZERO;
         articles.forEach(article -> {
-            BigDecimal test = article.getPrice();
-            test2[0] += Double.parseDouble(String.valueOf(result[0].add(test.multiply(new BigDecimal(article.getQuantity())))));
+            result.add(article.getPrice().multiply(new BigDecimal(article.getQuantity())));
         });
-        this.total = BigDecimal.valueOf(test2[0]);
+        this.total = result;
+    }
+
+    public void updateInventory(Article article){
+        ArticleRepo articleRepo = new ArticleRepo();
+        Article articleOrigin = articleRepo.getArticleById(article.getProductId());
+
+        if(articleOrigin.getQuantity() < article.getQuantity())
+            return;
+
+        articleOrigin.setQuantity(-article.getQuantity());
+    }
+
+    public void updateInventory(Article article, int quantity){
+        ArticleRepo articleRepo = new ArticleRepo();
+        Article articleOrigin = articleRepo.getArticleById(article.getProductId());
+
+        articleOrigin.setQuantity(quantity);
     }
 
     public void clearTicket(){

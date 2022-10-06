@@ -10,6 +10,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -18,7 +19,7 @@ public class ArticleRepo {
     private ObjectMapper mapper = new ObjectMapper();
 
 
-    public void saveArticle(Article article){
+    public Optional<Article> saveArticle(Article article){
         List<Article> articles = new ArrayList<>(getAll());
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
 
@@ -26,9 +27,13 @@ public class ArticleRepo {
 
         try{
             writer.writeValue(new File(linkFile), articles);
+
+            return Optional.of(article);
         } catch (Exception ex){
             System.out.println("Erro ao salvar os dados!");
         }
+
+        return Optional.empty();
     }
 
     public List<Article> getAll(){

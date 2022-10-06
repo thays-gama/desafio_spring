@@ -26,17 +26,7 @@ public class Article {
         this.quantity = quantity;
     }
 
-    @Override
-    public String toString() {
-        return "Article{" +
-                "productId=" + productId +
-                ", name='" + name + '\'' +
-                ", category='" + category + '\'' +
-                ", brand='" + brand + '\'' +
-                ", price=" + price +
-                ", quantity=" + quantity +
-                ", freeShipping=" + freeShipping +
-                ", prestige='" + prestige + '\'' +
-                '}';
+    public void setQuantity(int quantity){
+        this.quantity += quantity;
     }
 }
