@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class ArticleService implements IArticle {
@@ -28,7 +29,7 @@ public class ArticleService implements IArticle {
 
     @Override
     public List<Article> getAll() {
-        return repo.getAll();
+        return repo.getAll().stream().filter(Article::withStock).collect(Collectors.toList());
     }
 
     @Override

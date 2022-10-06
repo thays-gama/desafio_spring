@@ -1,5 +1,6 @@
 package br.com.dh.desafio_spring.model;
 
+import br.com.dh.desafio_spring.exception.OutOfStockException;
 import br.com.dh.desafio_spring.repository.ArticleRepo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -54,7 +55,7 @@ public class Ticket {
         Article articleOrigin = articleRepo.getArticleById(article.getProductId());
 
         if(articleOrigin.getQuantity() < article.getQuantity())
-            return;
+            throw new OutOfStockException("O estoque disponivel é de: " +articleOrigin.getQuantity()+ " unidades");
 
         articleOrigin.setQuantity(-article.getQuantity());
     }
