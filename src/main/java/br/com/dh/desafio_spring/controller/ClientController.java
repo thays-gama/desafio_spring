@@ -1,5 +1,6 @@
 package br.com.dh.desafio_spring.controller;
 
+import br.com.dh.desafio_spring.dto.ClientDTO;
 import br.com.dh.desafio_spring.exception.EmailAlreadyRegisteredException;
 import br.com.dh.desafio_spring.exception.RequiredFieldException;
 import br.com.dh.desafio_spring.model.Client;
@@ -21,7 +22,7 @@ public class ClientController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Client save(@RequestBody Client client) throws RequiredFieldException, EmailAlreadyRegisteredException {
+    public ClientDTO save(@RequestBody Client client) throws RequiredFieldException, EmailAlreadyRegisteredException {
         return clientService.save(client);
     }
 
@@ -36,4 +37,16 @@ public class ClientController {
     public ResponseEntity<List<Client>> getClientsByState(@RequestParam String state){
         return new ResponseEntity<>(clientService.getByState(state), HttpStatus.OK);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ClientDTO> getClientsById(@PathVariable Integer id){
+        return new ResponseEntity<>(clientService.findById(id), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteClientsById(@PathVariable Integer id){
+        clientService.removeById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }

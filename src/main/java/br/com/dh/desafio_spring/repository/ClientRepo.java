@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 @Log4j2
@@ -30,20 +31,31 @@ public class ClientRepo {
 
         clients.add(client);
 
-        try{
+        try {
             writer.writeValue(new File(linkFile), clients);
-        } catch (Exception ex){
+        } catch (Exception ex) {
             log.printf(Level.WARN, "Erro ao salvar os dados!");
         }
         log.printf(Level.INFO, "Novo cliente salvo.");
         return client;
     }
 
+    public Optional<Client> findById(Integer id){
+        return clients.stream()
+                .filter(client -> client.getClientId() == id)
+                .findFirst();
+    }
+
+    public void removeById(Integer id) {
+        clients = clients.stream().filter(client -> client.getClientId()!=id)
+                .collect(Collectors.toList());
+    }
+
     public List<Client> getClients() {
         return clients;
     }
 
-    public List<Client> getAll(){
+    private List<Client> getAll(){
         try{
             log.printf(Level.INFO, "Arquivo "+linkFile+" carregado");
             return Arrays.asList(mapper.readValue(new File(linkFile), Client[].class));
