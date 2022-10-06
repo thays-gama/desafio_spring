@@ -56,6 +56,9 @@ public class ArticleService implements IArticle {
 
     public List<Article> findAllByCategoryAndFreeShippingOrdered(String category, Boolean freeShipping, int order) {
         List<Article> articleList = this.findAllByCategoryAndFreeShipping(category, freeShipping);
+
+        if(articleList.isEmpty()) throw new NotFoundException("Nenhum dado encontrado!");
+
         switch(order){
             case ASC_ALPHABETIC:
                 articleList.sort(Comparator.comparing(Article::getName));
