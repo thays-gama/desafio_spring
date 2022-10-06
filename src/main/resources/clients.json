@@ -1,0 +1,13 @@
+[ {
+  "clientId" : 1,
+  "name" : "Thays",
+  "lastName" : "Gama",
+  "email" : "thays@gama.com",
+  "state" : "Ceará"
+}, {
+  "clientId" : 2,
+  "name" : "Paula",
+  "lastName" : "Santos",
+  "email" : "paula@santos.com",
+  "state" : "Paraiba"
+}]
