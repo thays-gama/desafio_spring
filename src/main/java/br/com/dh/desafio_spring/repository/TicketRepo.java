@@ -1,6 +1,8 @@
 package br.com.dh.desafio_spring.repository;
 
 import br.com.dh.desafio_spring.exception.OutOfStockException;
+import br.com.dh.desafio_spring.exception.NotFoundException;
+import br.com.dh.desafio_spring.exception.ServerException;
 import br.com.dh.desafio_spring.model.Article;
 import br.com.dh.desafio_spring.model.ArticleTicket;
 import br.com.dh.desafio_spring.model.Ticket;
@@ -30,6 +32,7 @@ public class TicketRepo {
         articles.stream().forEach(article -> {
             Article articleCompleto = articleRepo.getArticleById(article.getProductId());
 
+            if(articleCompleto == null) throw new NotFoundException("Produto não encontrado");
             articleCompleto.setQuantity(article.getQuantity());
 
             ticket.addArticle(articleCompleto);
@@ -41,7 +44,7 @@ public class TicketRepo {
         try{
             writer.writeValue(new File(linkFile), tickets);
         } catch (Exception ex){
-            System.out.println("Erro ao salvar os dados!");
+            throw new ServerException("Ocorreu um erro ao salvar os dados!");
         }
 
         return Optional.of(ticket);
@@ -51,9 +54,7 @@ public class TicketRepo {
         try{
             return Arrays.asList(mapper.readValue(new File(linkFile), Ticket[].class));
         } catch (Exception ex){
-            System.out.println("Erro ao ler o arquivo");
+            throw new ServerException("Ocorreu um erro ao ler os dados!");
         }
-
-        return null;
     }
 }
