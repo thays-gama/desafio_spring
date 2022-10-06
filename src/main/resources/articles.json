@@ -124,4 +124,13 @@
   "quantity" : 9,
   "freeShipping" : true,
   "prestige" : "*****"
+}, {
+  "productId" : 15,
+  "name" : "teste",
+  "category" : "teste2",
+  "brand" : "teste",
+  "price" : 100.00,
+  "quantity" : 0,
+  "freeShipping" : true,
+  "prestige" : "*****"
 } ]
