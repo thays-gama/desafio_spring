@@ -72,8 +72,14 @@ public class ClientService implements IClient
         return clients;
     }
     public List<Client> getByState(String state){
-        return repo.getAll().stream()
+        List<Client> clients = repo.getAll().stream()
                 .filter(item-> item.getState().equalsIgnoreCase(state))
                 .collect(Collectors.toList());
+
+        if (clients.isEmpty()) {
+            throw new NotFoundException("Cliente(s) não encontrado(s)");
+        }
+
+        return clients;
     }
 }
