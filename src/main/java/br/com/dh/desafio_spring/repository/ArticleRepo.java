@@ -1,6 +1,8 @@
 package br.com.dh.desafio_spring.repository;
 
+import br.com.dh.desafio_spring.exception.AlreadyExistingException;
 import br.com.dh.desafio_spring.exception.NotFoundException;
+import br.com.dh.desafio_spring.exception.OutOfStockException;
 import br.com.dh.desafio_spring.model.Article;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,10 +22,11 @@ public class ArticleRepo {
     private ObjectMapper mapper = new ObjectMapper();
 
 
+
     public Optional<Article> saveArticle(Article article){
         List<Article> articles = new ArrayList<>(getAll());
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
-
+        existsArticle(article, articles);
         articles.add(article);
 
         try{
@@ -68,6 +71,18 @@ public class ArticleRepo {
                 .collect(Collectors.toList());
     }
 
+    public void existsArticle(Article newArticle, List<Article> articles){
+        for (Article article : articles) {
+            System.out.println(article);
+            if (article.getProductId() == newArticle.getProductId())
+                throw new AlreadyExistingException("Produto já cadastrado!");
+            if (article.getName().equalsIgnoreCase(newArticle.getName()) && article.getBrand().equalsIgnoreCase(newArticle.getBrand()))
+                throw new AlreadyExistingException(" Nome e marca já cadastrados!");
+        }
+
+
+    }
+    
     public Article getArticleById(int productId) {
         if(getAll().size() >= productId)
             return getAll().get(productId - 1);
