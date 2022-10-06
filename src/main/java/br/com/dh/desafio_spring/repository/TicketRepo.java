@@ -33,7 +33,7 @@ public class TicketRepo {
             Article articleCompleto = articleRepo.getArticleById(article.getProductId());
 
             if(articleCompleto == null) throw new NotFoundException("Produto não encontrado");
-            articleCompleto.setQuantity(article.getQuantity());
+            articleCompleto.applyQuantity(article.getQuantity());
 
             ticket.addArticle(articleCompleto);
         });

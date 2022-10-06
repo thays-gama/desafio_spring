@@ -63,6 +63,11 @@ public class ArticleRepo {
 
     public List<Article> findByCategory(String category){
         List<Article> articles = new ArrayList<>(getAll());
+
+        List<String> categorys = articles.stream().map(Article::getCategory).collect(Collectors.toList());
+
+        if(!categorys.contains(category)) throw new NotFoundException("Categoria não encontrada!");
+
         return articles.stream()
                 .filter(item->item.getCategory().equalsIgnoreCase(category))
                 .collect(Collectors.toList());
