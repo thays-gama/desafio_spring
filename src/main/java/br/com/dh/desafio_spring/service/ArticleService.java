@@ -54,7 +54,7 @@ public class ArticleService implements IArticle {
     }
 
     public List<Article> findAllByCategoryAndFreeShippingOrdered(String category, Boolean freeShipping, int order) {
-        List<Article> articleList = repo.findAllByCategoryAndFreeShipping(category, freeShipping);
+        List<Article> articleList = this.findAllByCategoryAndFreeShipping(category, freeShipping);
         switch(order){
             case ASC_ALPHABETIC:
                 articleList.sort(Comparator.comparing(Article::getName));
