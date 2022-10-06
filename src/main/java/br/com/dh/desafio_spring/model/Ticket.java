@@ -42,13 +42,11 @@ public class Ticket {
 
     public void sumArticle(){
         verifyArticles();
-        final BigDecimal[] result = {BigDecimal.ZERO};
-        final Double[] test2 = {0.0};
+        BigDecimal result = BigDecimal.ZERO;
         articles.forEach(article -> {
-            BigDecimal test = article.getPrice();
-            test2[0] += Double.parseDouble(String.valueOf(result[0].add(test.multiply(new BigDecimal(article.getQuantity())))));
+            result.add(article.getPrice().multiply(new BigDecimal(article.getQuantity())));
         });
-        this.total = BigDecimal.valueOf(test2[0]);
+        this.total = result;
     }
 
     public void updateInventory(Article article){
