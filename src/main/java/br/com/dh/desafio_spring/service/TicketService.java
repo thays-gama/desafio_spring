@@ -1,6 +1,6 @@
 package br.com.dh.desafio_spring.service;
 
-import br.com.dh.desafio_spring.model.Article;
+import br.com.dh.desafio_spring.exception.NotFoundException;
 import br.com.dh.desafio_spring.model.ArticleTicket;
 import br.com.dh.desafio_spring.model.Ticket;
 import br.com.dh.desafio_spring.repository.TicketRepo;
@@ -16,7 +16,7 @@ public class TicketService implements ITicket{
     private TicketRepo repo;
 
     @Override
-    public Optional<Ticket> saveTicket(List<ArticleTicket> articles) {
+    public Optional<Ticket> saveTicket(List<ArticleTicket> articles) throws NotFoundException {
         return repo.saveTicket(articles);
     }
 

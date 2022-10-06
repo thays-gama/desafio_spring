@@ -1,5 +1,6 @@
 package br.com.dh.desafio_spring.repository;
 
+import br.com.dh.desafio_spring.exception.NotFoundException;
 import br.com.dh.desafio_spring.model.Article;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -62,7 +63,10 @@ public class ArticleRepo {
                 .collect(Collectors.toList());
     }
 
-    public Article getArticleById(int productId){
-        return getAll().get(productId - 1);
+    public Article getArticleById(int productId) {
+        if(getAll().size() >= productId)
+            return getAll().get(productId - 1);
+
+        return null;
     }
 }
