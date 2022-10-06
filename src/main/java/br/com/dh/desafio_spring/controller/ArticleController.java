@@ -1,5 +1,6 @@
 package br.com.dh.desafio_spring.controller;
 
+import br.com.dh.desafio_spring.dto.ArticleDTO;
 import br.com.dh.desafio_spring.model.Article;
 import br.com.dh.desafio_spring.service.IArticle;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,8 @@ public class ArticleController {
     private IArticle articleService;
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void saveArticle(@RequestBody Article article){
-        articleService.save(article);
-        //articleService.save(article);
+    public ResponseEntity<ArticleDTO> saveArticle(@RequestBody Article article){
+        return new ResponseEntity<>(articleService.save(article), HttpStatus.CREATED);
     }
 
     @GetMapping(params = {"category", "freeShipping", "order"})
