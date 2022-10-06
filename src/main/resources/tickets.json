@@ -51,4 +51,26 @@
     "prestige" : "*****"
   } ],
   "total" : 3781.0
+}, {
+  "id" : 3,
+  "articles" : [ {
+    "productId" : 10,
+    "name" : "Calcas",
+    "category" : "Roupas",
+    "brand" : "Oakley",
+    "price" : 73.00,
+    "quantity" : 11,
+    "freeShipping" : false,
+    "prestige" : "***"
+  }, {
+    "productId" : 5,
+    "name" : "Mini Cama elastica",
+    "category" : "Esportes",
+    "brand" : "Starboard",
+    "price" : 183.00,
+    "quantity" : 11,
+    "freeShipping" : true,
+    "prestige" : "*****"
+  } ],
+  "total" : 2816.0
 } ]

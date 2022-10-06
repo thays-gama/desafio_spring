@@ -1,5 +1,6 @@
 package br.com.dh.desafio_spring.repository;
 
+import br.com.dh.desafio_spring.exception.NotFoundException;
 import br.com.dh.desafio_spring.model.Article;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,6 +11,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -18,7 +20,7 @@ public class ArticleRepo {
     private ObjectMapper mapper = new ObjectMapper();
 
 
-    public void saveArticle(Article article){
+    public Optional<Article> saveArticle(Article article){
         List<Article> articles = new ArrayList<>(getAll());
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
 
@@ -26,9 +28,13 @@ public class ArticleRepo {
 
         try{
             writer.writeValue(new File(linkFile), articles);
+
+            return Optional.of(article);
         } catch (Exception ex){
             System.out.println("Erro ao salvar os dados!");
         }
+
+        return Optional.empty();
     }
 
     public List<Article> getAll(){
@@ -62,7 +68,10 @@ public class ArticleRepo {
                 .collect(Collectors.toList());
     }
 
-    public Article getArticleById(int productId){
-        return getAll().get(productId - 1);
+    public Article getArticleById(int productId) {
+        if(getAll().size() >= productId)
+            return getAll().get(productId - 1);
+
+        return null;
     }
 }
