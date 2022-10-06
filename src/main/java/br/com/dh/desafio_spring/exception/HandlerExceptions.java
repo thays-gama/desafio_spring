@@ -45,11 +45,23 @@ public class HandlerExceptions {
 
         return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
     }
+    
+    @ExceptionHandler(OutOfStockException.class)
+    public ResponseEntity<ExceptionDetails> handlerOutOfStockException(OutOfStockException ex){
+        ExceptionDetails exceptionDetails = ExceptionDetails.builder()
+                .title("Estoque insuficiente")
+                .message(ex.getMessage()
+                .status(HttpStatus.BAD_REQUEST.value())
+                .timeStamp(LocalDateTime.now())
+                .build();
 
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
+    }
+    
     @ExceptionHandler(AlreadyExistingException.class)
     public ResponseEntity<ExceptionDetails> handlerAlreadyExistingException(AlreadyExistingException ex){
         ExceptionDetails exceptionDetails = ExceptionDetails.builder()
-                .title("Dados jás cadastrados")
+                .title("Dados já cadastrados")
                 .message(ex.getMessage())
                 .status(HttpStatus.BAD_REQUEST.value())
                 .timeStamp(LocalDateTime.now())
@@ -57,7 +69,7 @@ public class HandlerExceptions {
 
         return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
     }
-
+    
     @ExceptionHandler(ServerException.class)
     public ResponseEntity<ExceptionDetails> handlerServerException(ServerException ex){
         ExceptionDetails exceptionDetails = ExceptionDetails.builder()

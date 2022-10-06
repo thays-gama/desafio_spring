@@ -29,4 +29,8 @@ public class Article {
     public void setQuantity(int quantity){
         this.quantity += quantity;
     }
+
+    public boolean withStock(){
+        return this.quantity > 0;
+    }
 }

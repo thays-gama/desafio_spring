@@ -1,5 +1,6 @@
 package br.com.dh.desafio_spring.repository;
 
+import br.com.dh.desafio_spring.exception.OutOfStockException;
 import br.com.dh.desafio_spring.exception.NotFoundException;
 import br.com.dh.desafio_spring.exception.ServerException;
 import br.com.dh.desafio_spring.model.Article;
@@ -21,7 +22,7 @@ public class TicketRepo {
     private final String linkFile = "src/main/resources/tickets.json";
     private ObjectMapper mapper = new ObjectMapper();
 
-    public Optional<Ticket> saveTicket(List<ArticleTicket> articles){
+    public Optional<Ticket> saveTicket(List<ArticleTicket> articles) throws OutOfStockException {
         ArticleRepo articleRepo = new ArticleRepo();
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
 
