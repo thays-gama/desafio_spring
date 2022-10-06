@@ -72,7 +72,7 @@ public class ClientService implements IClient
         return clients;
     }
     public List<Client> getByState(String state){
-        List<Client> clients = repo.getAll().stream()
+        List<Client> clients = this.getAll().stream()
                 .filter(item-> item.getState().equalsIgnoreCase(state))
                 .collect(Collectors.toList());
 
