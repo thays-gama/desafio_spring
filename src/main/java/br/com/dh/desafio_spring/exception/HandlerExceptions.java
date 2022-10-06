@@ -50,7 +50,7 @@ public class HandlerExceptions {
     public ResponseEntity<ExceptionDetails> handlerOutOfStockException(OutOfStockException ex){
         ExceptionDetails exceptionDetails = ExceptionDetails.builder()
                 .title("Estoque insuficiente")
-                .message(ex.getMessage()
+                .message(ex.getMessage())
                 .status(HttpStatus.BAD_REQUEST.value())
                 .timeStamp(LocalDateTime.now())
                 .build();
