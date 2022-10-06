@@ -45,4 +45,16 @@ public class HandlerExceptions {
 
         return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(OutOfStockException.class)
+    public ResponseEntity<ExceptionDetails> handlerOutOfStockException(OutOfStockException ex){
+        ExceptionDetails exceptionDetails = ExceptionDetails.builder()
+                .title("Estoque insuficiente")
+                .message(ex.getMessage())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .timeStamp(LocalDateTime.now())
+                .build();
+
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
+    }
 }
