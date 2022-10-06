@@ -1,5 +1,6 @@
 package br.com.dh.desafio_spring.service;
 
+import br.com.dh.desafio_spring.dto.ArticleDTO;
 import br.com.dh.desafio_spring.model.Article;
 import br.com.dh.desafio_spring.repository.ArticleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,8 @@ public class ArticleService implements IArticle{
     private ArticleRepo repo;
 
     @Override
-    public void save(Article article) {
-        repo.saveArticle(article);
+    public ArticleDTO save(Article article) {
+        return new ArticleDTO(repo.saveArticle(article).get());
     }
 
     @Override
