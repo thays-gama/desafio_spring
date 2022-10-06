@@ -1,6 +1,7 @@
 package br.com.dh.desafio_spring.service;
 
 import br.com.dh.desafio_spring.exception.EmailAlreadyRegisteredException;
+import br.com.dh.desafio_spring.exception.NotFoundException;
 import br.com.dh.desafio_spring.exception.RequiredFieldException;
 import br.com.dh.desafio_spring.model.Client;
 import br.com.dh.desafio_spring.repository.ClientRepo;
@@ -62,7 +63,13 @@ public class ClientService implements IClient
     }
 
     public List<Client> getAll(){
-        return repo.getAll();
+        List<Client> clients = repo.getAll();
+
+        if (clients.isEmpty()) {
+            throw new NotFoundException("Objeto não encontrado");
+        }
+
+        return clients;
     }
     public List<Client> getByState(String state){
         return repo.getAll().stream()
