@@ -47,8 +47,15 @@ public class ClientRepo {
     }
 
     public void removeById(Integer id) {
+        ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
         clients = clients.stream().filter(client -> client.getClientId()!=id)
                 .collect(Collectors.toList());
+        try {
+            writer.writeValue(new File(linkFile), clients);
+        } catch (Exception ex) {
+            log.printf(Level.WARN, "Erro ao salvar os dados!");
+        }
+        log.printf(Level.INFO, "Cliente com id "+id+" deletado.");
     }
 
     public List<Client> getClients() {

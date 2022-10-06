@@ -44,7 +44,7 @@ public class ClientController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteClientsById(@PathVariable Integer id){
+    public ResponseEntity<Void> deleteClientsById(@PathVariable Integer id){
         clientService.removeById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

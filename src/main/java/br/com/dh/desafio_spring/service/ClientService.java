@@ -59,7 +59,6 @@ public class ClientService implements IClient
         if(client.isEmpty()){
             throw new NotFoundException("Cliente não encontrado.");
         }
-        log.printf(Level.INFO, "Cliente com id "+id+" deletado.");
         repo.removeById(id);
     }
 
