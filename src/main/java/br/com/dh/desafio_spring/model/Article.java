@@ -20,4 +20,23 @@ public class Article {
     private int quantity;
     private boolean freeShipping;
     private String prestige;
+
+    public Article(int productId, int quantity) {
+        this.productId = productId;
+        this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "productId=" + productId +
+                ", name='" + name + '\'' +
+                ", category='" + category + '\'' +
+                ", brand='" + brand + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", freeShipping=" + freeShipping +
+                ", prestige='" + prestige + '\'' +
+                '}';
+    }
 }
