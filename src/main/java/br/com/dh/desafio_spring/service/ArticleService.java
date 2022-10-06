@@ -1,6 +1,7 @@
 package br.com.dh.desafio_spring.service;
 
 import br.com.dh.desafio_spring.dto.ArticleDTO;
+import br.com.dh.desafio_spring.exception.NotFoundException;
 import br.com.dh.desafio_spring.model.Article;
 import br.com.dh.desafio_spring.repository.ArticleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +27,24 @@ public class ArticleService implements IArticle{
 
     @Override
     public List<Article> findAllByCategoryAndFreeShipping(String category, Boolean freeShipping) {
-        return repo.findAllByCategoryAndFreeShipping(category, freeShipping);
+        List<Article> article = repo.findAllByCategoryAndFreeShipping(category, freeShipping);
+
+        if (article.isEmpty()) {
+            throw new NotFoundException("Objeto não encontrado");
+        }
+
+        return article;
     }
 
     @Override
     public List<Article> findAllByFreeShippingAndPrestige(Boolean freeShipping, String prestige) {
-        return repo.findAllByFreeShippingAndPrestige(freeShipping,prestige);
+        List<Article> article = repo.findAllByFreeShippingAndPrestige(freeShipping, prestige);
+        
+        if (article.isEmpty()) {
+            throw new NotFoundException("Objeto não encontrado");
+        }
+
+        return article;
     }
     public List<Article> findAllByCategoryAndFreeShippingOrdered(String category, Boolean freeShipping, int order) {
         List<Article> articleList = repo.findAllByCategoryAndFreeShipping(category, freeShipping);
