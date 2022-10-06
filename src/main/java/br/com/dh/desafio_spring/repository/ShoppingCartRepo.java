@@ -1,8 +1,7 @@
 package br.com.dh.desafio_spring.repository;
 
-import br.com.dh.desafio_spring.exception.EmailAlreadyRegisteredException;
-import br.com.dh.desafio_spring.exception.RequiredFieldException;
-import br.com.dh.desafio_spring.model.Client;
+import br.com.dh.desafio_spring.model.ShoppingCart;
+import br.com.dh.desafio_spring.model.Ticket;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -16,50 +15,42 @@ import java.util.stream.Collectors;
 
 @Repository
 @Log4j2
-public class ClientRepo {
-
-    private final String linkFile = "src/main/resources/clients.json";
+public class ShoppingCartRepo {
+    private final String linkFile = "src/main/resources/shoppingCarts.json";
     private ObjectMapper mapper = new ObjectMapper();
 
-    public Client saveClient(Client client) {
-        List<Client> clients = new ArrayList<>(getAll());;
+    public ShoppingCart saveShoppingCart(ShoppingCart shoppingCart) {
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
+        List<ShoppingCart> shoppingCarts = getAll();
 
-        clients.add(client);
+        shoppingCarts.add(shoppingCart);
 
         try {
-            writer.writeValue(new File(linkFile), clients);
+            writer.writeValue(new File(linkFile), shoppingCarts);
         } catch (Exception ex) {
             log.printf(Level.WARN, "Erro ao salvar os dados!");
         }
-        log.printf(Level.INFO, "Novo cliente salvo.");
-        return client;
-    }
-
-    public Optional<Client> findById(Integer id){
-        List<Client> clients = new ArrayList<>(getAll());;
-        return clients.stream()
-                .filter(client -> client.getClientId() == id)
-                .findFirst();
+        log.printf(Level.INFO, "Novo carrinho salvo.");
+        return shoppingCart;
     }
 
     public void removeById(Integer id) {
-        List<Client> clients = new ArrayList<>(getAll());;
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
-        clients = clients.stream().filter(client -> client.getClientId()!=id)
+        List<ShoppingCart> shoppingCarts = getAll();
+        shoppingCarts = shoppingCarts.stream().filter(shoppingCart -> shoppingCart.getId()!=id)
                 .collect(Collectors.toList());
         try {
-            writer.writeValue(new File(linkFile), clients);
+            writer.writeValue(new File(linkFile), shoppingCarts);
         } catch (Exception ex) {
             log.printf(Level.WARN, "Erro ao salvar os dados!");
         }
-        log.printf(Level.INFO, "Cliente com id "+id+" deletado.");
+        log.printf(Level.INFO, "Carrinho com id "+id+" deletado.");
     }
 
-    public List<Client> getAll(){
+    public List<ShoppingCart> getAll(){
         try{
             log.printf(Level.INFO, "Arquivo "+linkFile+" carregado");
-            return Arrays.asList(mapper.readValue(new File(linkFile), Client[].class));
+            return new ArrayList<>(Arrays.asList(mapper.readValue(new File(linkFile), ShoppingCart[].class)));
         } catch (Exception ex){
             log.printf(Level.WARN, "Erro ao ler o arquivo. O arquivo "+linkFile+" não foi carregado");
         }
