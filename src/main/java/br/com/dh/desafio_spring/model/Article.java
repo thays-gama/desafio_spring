@@ -30,6 +30,10 @@ public class Article {
         this.quantity += quantity;
     }
 
+    public void applyQuantity(int quantity){
+        this.quantity = quantity;
+    }
+
     public boolean withStock(){
         return this.quantity > 0;
     }
