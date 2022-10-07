@@ -12,7 +12,7 @@ import java.rmi.ServerException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/articles")
+@RequestMapping("/api/v1")
 public class ArticleController {
     @Autowired
     private IArticle articleService;
@@ -22,29 +22,32 @@ public class ArticleController {
         return new ResponseEntity<>(articleService.save(articles), HttpStatus.CREATED);
     }
 
-    @GetMapping(params = {"category", "freeShipping", "order"})
+    @GetMapping(value = "/articles", params = {"category", "freeShipping", "order"})
     @ResponseStatus(HttpStatus.OK)
     public List<Article> findAllByCategoryAndFreeShippingOrdered(@RequestParam String category, @RequestParam Boolean freeShipping, @RequestParam int order){
         return articleService.findAllByCategoryAndFreeShippingOrdered(category, freeShipping, order);
     }
-    @GetMapping(params = {"category", "freeShipping"})
+
+    @GetMapping(value = "/articles", params = {"category", "freeShipping"})
     @ResponseStatus(HttpStatus.OK)
     public List<Article> findAllByCategoryAndFreeShipping(@RequestParam String category, @RequestParam Boolean freeShipping){
         return articleService.findAllByCategoryAndFreeShipping(category, freeShipping);
     }
 
-    @GetMapping(params = {"freeShipping", "prestige"})
+
+    @GetMapping(value = "/articles", params = {"freeShipping", "prestige"})
     @ResponseStatus(HttpStatus.OK)
     public List<Article> findAllByFreeShippingAndPrestige(@RequestParam Boolean freeShipping, @RequestParam String prestige){
         return articleService.findAllByFreeShippingAndPrestige(freeShipping, prestige);
     }
 
-    @GetMapping
+
+    @GetMapping("/articles")
     public ResponseEntity<List<Article>> getAllArticles(){
         return new ResponseEntity<>(articleService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping(params = {"category"})
+    @GetMapping(value = "/articles", params = {"category"})
     @ResponseStatus(HttpStatus.OK)
     public List<Article>findByCategory(@RequestParam String category){
         return articleService.findByCategory(category);
