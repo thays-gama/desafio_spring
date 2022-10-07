@@ -13,12 +13,21 @@ import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Classe que representa o Repository do Carrinho de Compras
+ * @author thays-gama
+ */
 @Repository
 @Log4j2
 public class ShoppingCartRepo {
     private final String linkFile = "src/main/resources/shoppingCarts.json";
     private ObjectMapper mapper = new ObjectMapper();
 
+    /**
+     * @param shoppingCart carrinho de compras
+     * @return carrinho salvo
+     * @since 1.0
+     */
     public ShoppingCart saveShoppingCart(ShoppingCart shoppingCart) {
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
         List<ShoppingCart> shoppingCarts = getAll();
@@ -34,6 +43,10 @@ public class ShoppingCartRepo {
         return shoppingCart;
     }
 
+    /**
+     * @param id id do carrinho a ser removido
+     * @since 1.0
+     */
     public void removeById(Integer id) {
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
         List<ShoppingCart> shoppingCarts = getAll();
@@ -47,6 +60,10 @@ public class ShoppingCartRepo {
         log.printf(Level.INFO, "Carrinho com id "+id+" deletado.");
     }
 
+    /**
+     * @return lista de todos osa carrinhos salvos
+     * @since 1.0
+     */
     public List<ShoppingCart> getAll(){
         try{
             log.printf(Level.INFO, "Arquivo "+linkFile+" carregado");

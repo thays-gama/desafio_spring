@@ -9,6 +9,10 @@ import org.apache.logging.log4j.Level;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * Classe que representa o model do Carrinho de Compras
+ * @author thays-gama
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,6 +23,10 @@ public class ShoppingCart {
     private BigDecimal total;
     private Client client;
 
+    /**
+     * Soma o total de todos os tickets dentro do objeto e atribui ao total do Carrinho de Compras
+     * @since 1.0
+     */
     public void sumTickets(){
         BigDecimal result = BigDecimal.ZERO;
         for (int i = 0; i < tickets.size(); i++) {

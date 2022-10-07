@@ -13,6 +13,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Classe que representa o Service do Carrinho de Compras
+ * @author thays-gama
+ */
 @Service
 public class ShoppingCartService implements IShoppingCart{
 
@@ -21,6 +25,11 @@ public class ShoppingCartService implements IShoppingCart{
     private final ClientRepo clientRepo;
     private Integer counter;
 
+    /**
+     * Construtor da classe
+     * @param repo
+     * @param ticketRepo
+     */
     public ShoppingCartService(ShoppingCartRepo repo, TicketRepo ticketRepo, ClientRepo clientRepo) {
         this.repo = repo;
         this.ticketRepo = ticketRepo;
@@ -28,6 +37,10 @@ public class ShoppingCartService implements IShoppingCart{
         this.clientRepo = clientRepo;
     }
 
+    /**
+     * @param ticketId Id dos tickets que devem ser associados ao carinhos
+     * @return Carrinho de compras salvo com a lista de tickets inseridos
+     */
     @Override
     public ShoppingCart save(Integer[] ticketId, Integer clientId) {
         ShoppingCart shoppingCart = new ShoppingCart();
@@ -51,11 +64,17 @@ public class ShoppingCartService implements IShoppingCart{
         return repo.saveShoppingCart(shoppingCart);
     }
 
+    /**
+     * @return lista de todos os carrinhos de compra cadastrados
+     */
     @Override
     public List<ShoppingCart> findAll() {
         return repo.getAll();
     }
 
+    /**
+     * @param id id do carrinho que deve ser deletado
+     */
     @Override
     public void deleteById(Integer id) {
         repo.removeById(id);
