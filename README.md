@@ -912,5 +912,3 @@ src/main/resources/MELI - DH.postman_collection.json
 [![Thays Gama ](https://img.shields.io/badge/Thays_Gama-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/thaysgama/) 
 [![Williamns Belo](https://img.shields.io/badge/Williamns_Belo-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/williamns-belo/) 
 
-
-<p align="center">Copyright © 2021 Michael Caxias</p>
