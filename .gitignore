@@ -3,6 +3,10 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+src/main/resources/articles.json
+src/main/resources/clents.json
+src/main/resources/shoppingCarts.json
+src/main/resources/tickets.json
 
 ### STS ###
 .apt_generated

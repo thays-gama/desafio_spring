@@ -46,18 +46,6 @@ public class HandlerExceptions {
         return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(SpecificFieldException.class)
-    public ResponseEntity<ExceptionDetails> handlerSpecificFieldException(SpecificFieldException ex){
-        ExceptionDetails exceptionDetails = ExceptionDetails.builder()
-                .title("Preencha todos os atributos")
-                .message(ex.getMessage())
-                .status(HttpStatus.BAD_REQUEST.value())
-                .timeStamp(LocalDateTime.now())
-                .build();
-
-        return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
-    }
-
     @ExceptionHandler(OutOfStockException.class)
     public ResponseEntity<ExceptionDetails> handlerOutOfStockException(OutOfStockException ex){
         ExceptionDetails exceptionDetails = ExceptionDetails.builder()
@@ -83,7 +71,7 @@ public class HandlerExceptions {
     }
     
     @ExceptionHandler(ServerException.class)
-    public ResponseEntity<ExceptionDetails> handlerServerException(ServerException ex){
+    public ResponseEntity<ExceptionDetails> handlerServerException(ServerException ex) {
         ExceptionDetails exceptionDetails = ExceptionDetails.builder()
                 .title("Ocorreu um erro no servidor, tente novamente mais tarde")
                 .message(ex.getMessage())
@@ -92,5 +80,17 @@ public class HandlerExceptions {
                 .build();
 
         return new ResponseEntity<>(exceptionDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    
+    @ExceptionHandler(NotAuthorized.class)
+    public ResponseEntity<ExceptionDetails> handlerNotAuthorized(NotAuthorized ex) {
+        ExceptionDetails exceptionDetails = ExceptionDetails.builder()
+                .title("Não autorizado!")
+                .message(ex.getMessage())
+                .status(HttpStatus.UNAUTHORIZED.value())
+                .timeStamp(LocalDateTime.now())
+                .build();
+
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.UNAUTHORIZED);
     }
 }
