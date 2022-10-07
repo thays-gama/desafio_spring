@@ -24,7 +24,7 @@ public class ClientService implements IClient
 
     public ClientService(ClientRepo repo) {
         this.repo = repo;
-        this.counter = repo.getClients().size();
+        this.counter = repo.getAll().size();
     }
 
     @Override
@@ -63,7 +63,7 @@ public class ClientService implements IClient
     }
 
     private Optional<Client> getExistingClient(Client client){
-        return repo.getClients().stream()
+        return repo.getAll().stream()
                 .filter(c->c.getEmail().equalsIgnoreCase(client.getEmail()))
                 .findFirst();
     }
@@ -86,7 +86,7 @@ public class ClientService implements IClient
     }
     @Override
     public List<Client> getAll(){
-        List<Client> clients = repo.getClients();
+        List<Client> clients = repo.getAll();
 
         if (clients.isEmpty()) {
             throw new NotFoundException("Objeto não encontrado");

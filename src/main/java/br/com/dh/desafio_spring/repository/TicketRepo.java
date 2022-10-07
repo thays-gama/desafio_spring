@@ -57,4 +57,10 @@ public class TicketRepo {
             throw new ServerException("Ocorreu um erro ao ler os dados!");
         }
     }
+
+    public Optional<Ticket> findById(Integer id){
+        return this.getAll().stream()
+                .filter(ticket -> ticket.getId() == id)
+                .findFirst();
+    }
 }
