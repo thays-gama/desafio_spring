@@ -45,7 +45,7 @@ public class ShoppingCartService implements IShoppingCart{
         shoppingcCarts.stream().forEach((shoppingCart) -> {
             shoppingCart.getTickets().stream().forEach((ticket) -> {
                 if (ticket.getId() == id) {
-                    throw new AlreadyExistingException("Não é possível efetuar uma compra com um mesmo ticket");
+                    throw new AlreadyExistingException("Não é possível efetuar uma compra com um ticket já finalizado");
                 }
             });
         });
