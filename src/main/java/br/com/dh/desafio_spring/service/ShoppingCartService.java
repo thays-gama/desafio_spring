@@ -62,6 +62,10 @@ public class ShoppingCartService implements IShoppingCart{
         Optional<Client> client = clientRepo.findById(clientId);
         //checar se cliente existe
 
+        if (client.isEmpty()) {
+            throw new NotFoundException("Não existe um cliente com o id " +clientId);
+        }
+
         Arrays.stream(ticketId).forEach(id -> {
             Optional<Ticket> ticket = ticketRepo.findById(id);
             if (ticket.isPresent()) {
