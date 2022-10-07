@@ -37,4 +37,18 @@ public class Article {
     public boolean withStock(){
         return this.quantity > 0;
     }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "productId=" + productId +
+                ", name='" + name + '\'' +
+                ", category='" + category + '\'' +
+                ", brand='" + brand + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", freeShipping=" + freeShipping +
+                ", prestige='" + prestige + '\'' +
+                '}';
+    }
 }
