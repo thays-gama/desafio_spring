@@ -104,7 +104,7 @@ public class ArticleRepo {
         if (newArticle.getPrestige() == null )
             voidFields += "prestige ";
         if (!voidFields.isEmpty())
-            throw new SpecificFieldException("Esse(s) campo(s) precisa(m) ser preeenchido(s): " + voidFields);
+            throw new RequiredFieldException("Esse(s) campo(s) precisa(m) ser preeenchido(s): " + voidFields);
 
     }
     
