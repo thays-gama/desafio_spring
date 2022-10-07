@@ -1,5 +1,7 @@
 package br.com.dh.desafio_spring.model;
 
+import br.com.dh.desafio_spring.dto.ClientDTO;
+import br.com.dh.desafio_spring.exception.OutOfStockException;
 import br.com.dh.desafio_spring.repository.ArticleRepo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,6 +20,7 @@ public class Ticket {
     private int id;
     private List<Article> articles;
     private BigDecimal total;
+    private ClientDTO client;
 
     public void addArticle(Article article){
         verifyArticles();
@@ -42,11 +45,11 @@ public class Ticket {
 
     public void sumArticle(){
         verifyArticles();
-        BigDecimal result = BigDecimal.ZERO;
+        final BigDecimal[] result = {BigDecimal.ZERO};
         articles.forEach(article -> {
-            result.add(article.getPrice().multiply(new BigDecimal(article.getQuantity())));
+            result[0] = result[0].add(article.getPrice().multiply(new BigDecimal(article.getQuantity())));
         });
-        this.total = result;
+        this.total = result[0];
     }
 
     public void updateInventory(Article article){
@@ -54,7 +57,7 @@ public class Ticket {
         Article articleOrigin = articleRepo.getArticleById(article.getProductId());
 
         if(articleOrigin.getQuantity() < article.getQuantity())
-            return;
+            throw new OutOfStockException("O estoque disponivel é de: " +articleOrigin.getQuantity()+ " unidades");
 
         articleOrigin.setQuantity(-article.getQuantity());
     }

@@ -1,5 +1,6 @@
 package br.com.dh.desafio_spring.repository;
 
+import br.com.dh.desafio_spring.exception.*;
 import br.com.dh.desafio_spring.model.Article;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
+import java.rmi.ServerException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,21 +21,24 @@ public class ArticleRepo {
     private ObjectMapper mapper = new ObjectMapper();
 
 
-    public Optional<Article> saveArticle(Article article){
+
+    public Optional<List<Article>> saveArticle(List<Article> newArticles) throws ServerException {
         List<Article> articles = new ArrayList<>(getAll());
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
 
-        articles.add(article);
+        for (Article article : newArticles) {
+            checkArticle(article);
+            existsArticle(article, articles);
+            articles.add(article);
+        }
 
         try{
             writer.writeValue(new File(linkFile), articles);
 
-            return Optional.of(article);
+            return Optional.of(newArticles);
         } catch (Exception ex){
-            System.out.println("Erro ao salvar os dados!");
+            throw new ServerException("Erro ao salvar os dados");
         }
-
-        return Optional.empty();
     }
 
     public List<Article> getAll(){
@@ -62,12 +67,51 @@ public class ArticleRepo {
 
     public List<Article> findByCategory(String category){
         List<Article> articles = new ArrayList<>(getAll());
+
+        List<String> categorys = articles.stream().map(Article::getCategory).collect(Collectors.toList());
+
+        if(!categorys.contains(category)) throw new NotFoundException("Categoria não encontrada!");
+
         return articles.stream()
                 .filter(item->item.getCategory().equalsIgnoreCase(category))
                 .collect(Collectors.toList());
     }
 
-    public Article getArticleById(int productId){
-        return getAll().get(productId - 1);
+    public void existsArticle(Article newArticle, List<Article> articles){
+        for (Article article : articles) {
+            if (article.getProductId() == newArticle.getProductId())
+                throw new AlreadyExistingException("Produto já cadastrado!");
+            if (article.getName().equalsIgnoreCase(newArticle.getName()) && article.getBrand()
+                    .equalsIgnoreCase(newArticle.getBrand()))
+                throw new AlreadyExistingException(" Nome e marca já cadastrados!");
+        }
+    }
+
+    public void checkArticle (Article newArticle)  {
+        String voidFields = "";
+        if (newArticle.getProductId() <= 0)
+            voidFields += "productId ";
+        if (newArticle.getName() == null)
+            voidFields += "name ";
+        if (newArticle.getCategory() == null)
+            voidFields += "category ";
+        if (newArticle.getBrand() == null)
+            voidFields += "brand ";
+        if (newArticle.getPrice() == null || newArticle.getPrice().doubleValue()<=0)
+            voidFields += "price ";
+        if (newArticle.getQuantity() <= 0)
+            voidFields += "quantity ";
+        if (newArticle.getPrestige() == null )
+            voidFields += "prestige ";
+        if (!voidFields.isEmpty())
+            throw new SpecificFieldException("Esse(s) campo(s) precisa(m) ser preeenchido(s): " + voidFields);
+
+    }
+    
+    public Article getArticleById(int productId) {
+        if(getAll().size() >= productId)
+            return getAll().get(productId - 1);
+
+        return null;
     }
 }
