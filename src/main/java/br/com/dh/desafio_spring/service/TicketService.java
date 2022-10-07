@@ -16,8 +16,8 @@ public class TicketService implements ITicket{
     private TicketRepo repo;
 
     @Override
-    public Optional<Ticket> saveTicket(List<ArticleTicket> articles) throws NotFoundException {
-        return repo.saveTicket(articles);
+    public Optional<Ticket> saveTicket(List<ArticleTicket> articles, int idClient) throws NotFoundException {
+        return repo.saveTicket(articles, idClient);
     }
 
     @Override

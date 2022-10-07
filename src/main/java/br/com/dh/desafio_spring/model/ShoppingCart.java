@@ -13,7 +13,6 @@ import java.util.List;
  * Classe que representa o model do Carrinho de Compras
  * @author thays-gama
  */
-
 @Getter
 @Setter
 @NoArgsConstructor
