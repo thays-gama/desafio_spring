@@ -22,7 +22,7 @@ public class ClientController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ClientDTO save(@RequestBody Client client) throws RequiredFieldException, EmailAlreadyRegisteredException {
+    public ClientDTO save(@RequestBody Client client) {
         return clientService.save(client);
     }
 

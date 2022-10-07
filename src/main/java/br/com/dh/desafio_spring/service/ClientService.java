@@ -28,15 +28,13 @@ public class ClientService implements IClient
     }
 
     @Override
-    public ClientDTO save(Client client) throws EmailAlreadyRegisteredException, RequiredFieldException {
+    public ClientDTO save(Client client) {
         if(getExistingClient(client).isPresent()){
             throw new EmailAlreadyRegisteredException("Esse email já é registrado.");
         }
 
-        if(!validateFields(client).isEmpty()){
-            String fields = validateFields(client).stream()
-                    .map(n -> String.valueOf(n))
-                    .collect(Collectors.joining(", "));
+        String fields = validateFields(client);
+        if(fields!=""){
             throw new RequiredFieldException("O(s) campo(s) "+fields+" é/são obrigatório(s).");
         }
         client.setClientId(++counter);
@@ -68,21 +66,21 @@ public class ClientService implements IClient
                 .findFirst();
     }
 
-    private List<String> validateFields(Client client){
-        List list = new ArrayList<>();
+    private String validateFields(Client client){
+        String nullFields = "";
         if(client.getName() == null){
-            list.add("name");
+            nullFields+="name";
         }
         if(client.getLastName() == null){
-            list.add("lastName");
+            nullFields+="lastName";
         }
         if(client.getEmail() == null){
-            list.add("email");
+            nullFields+="email";
         }
         if(client.getState() == null){
-            list.add("state");
+            nullFields+="state";
         }
-        return list;
+        return nullFields;
     }
     @Override
     public List<Client> getAll(){
