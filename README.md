@@ -16,7 +16,7 @@ Projeto feito no bootcamp [Java BackEnd - MercadoLivre](https://www.mercadolibre
   - Arquitetura MVC
 - Criar uma API utilizando o Spring.
 
-## 💻 Como iniciar
+## 💻 Como iniciar na IDE
 
 1. Faça o clone do projeto:
 ```shell
@@ -27,12 +27,19 @@ git clone git@github.com:thays-gama/desafio_spring.git
 mvn spring-boot:run
 ```
 
+## 🧑🏻‍🚀 Como testar no Postman
+
+1. Importar o arquivo:
+```shell
+src/main/resources/MELI - DH.postman_collection.json
+```
+
 # 💡 Documentação da API
 
 ### Cadastra um produto
 
 ```http
- POST /api/v1/articles/insert-articles-request
+ POST /api/v1/insert-articles-request
 ```
 
 | Corpo da requisição                                                         | Tipo       | Descrição                           |
@@ -891,12 +898,19 @@ mvn spring-boot:run
 
 ## Feito Com:
 
-[![IDE](https://img.shields.io/badge/IntelliJ_IDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white)](https://www.jetbrains.com/idea/)
-[![IDE](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)](https://www.java.com/pt-BR/)
-[![IDE](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)](https://spring.io/)
+[![IDE](https://img.shields.io/badge/IntelliJ_IDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white)](https://www.jetbrains.com/idea/) 
+[![IDE](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)](https://www.java.com/pt-BR/) 
+[![IDE](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)](https://spring.io/) 
 
 
+## Devs:
 
+[![Giovanna Almeida](https://img.shields.io/badge/Giovanna_Almeida-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/giovanna-souza-70bbb41b4/) 
+[![Mauro Correia](https://img.shields.io/badge/Mauro_Correia-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mauro-correia/) 
+[![Michael Caxias](https://img.shields.io/badge/Michael_Caxias-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/michaelcaxias/) 
+[![Paula Santos](https://img.shields.io/badge/Paula_Santos-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/paula-libia-santos/)
+[![Thays Gama ](https://img.shields.io/badge/Thays_Gama-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/thaysgama/) 
+[![Williamns Belo](https://img.shields.io/badge/Williamns_Belo-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/williamns-belo/) 
 
 
 <p align="center">Copyright © 2021 Michael Caxias</p>
