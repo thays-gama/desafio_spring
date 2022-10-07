@@ -1,4 +1,4 @@
-<img src="https://github.com/thays-gama/desafio_spring/blob/main/src/main/resources/images/dh.jpeg" alt="logotipo Digital House" width="140px" align="right">
+<img src="https://github.com/thays-gama/desafio_spring/blob/main/src/main/resources/images/dh.png" alt="logotipo Digital House" width="140px" align="right">
 <img src="https://github.com/thays-gama/desafio_spring/blob/main/src/main/resources/images/meli.png" alt="logotipo Mercado Livre" width="100px" align="right">
 
 # 🍃 Desafio Spring - DigitalHouse
