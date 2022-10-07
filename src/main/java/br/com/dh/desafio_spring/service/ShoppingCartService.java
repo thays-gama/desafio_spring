@@ -1,5 +1,6 @@
 package br.com.dh.desafio_spring.service;
 
+import br.com.dh.desafio_spring.exception.AlreadyExistingException;
 import br.com.dh.desafio_spring.exception.NotFoundException;
 import br.com.dh.desafio_spring.model.ShoppingCart;
 import br.com.dh.desafio_spring.model.Ticket;
@@ -23,6 +24,18 @@ public class ShoppingCartService implements IShoppingCart{
         this.repo = repo;
         this.ticketRepo = ticketRepo;
         this.counter = repo.getAll().size();
+    }
+
+    private void validateExistingTicket(Integer id) {
+        List<ShoppingCart> shoppingcCarts = this.findAll();
+
+        shoppingcCarts.stream().forEach((shoppingCart) -> {
+            shoppingCart.getTickets().stream().forEach((ticket) -> {
+                if (ticket.getId() == id) {
+                    throw new AlreadyExistingException("Não é possível efetuar uma compra com o mesmo ticket");
+                }
+            });
+        });
     }
 
     @Override
