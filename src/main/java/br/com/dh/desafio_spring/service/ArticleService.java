@@ -7,6 +7,7 @@ import br.com.dh.desafio_spring.repository.ArticleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.rmi.ServerException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,8 +24,8 @@ public class ArticleService implements IArticle {
     private ArticleRepo repo;
 
     @Override
-    public ArticleDTO save(Article article) {
-        return new ArticleDTO(repo.saveArticle(article).get());
+    public List<ArticleDTO> save(List<Article> articles) throws ServerException {
+        return repo.saveArticle(articles).get().stream().map(ArticleDTO::new).collect(Collectors.toList());
     }
 
     @Override

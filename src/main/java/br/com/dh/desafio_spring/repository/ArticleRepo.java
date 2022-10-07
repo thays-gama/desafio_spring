@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
+import java.rmi.ServerException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,22 +22,23 @@ public class ArticleRepo {
 
 
 
-    public Optional<Article> saveArticle(Article article)  {
+    public Optional<List<Article>> saveArticle(List<Article> newArticles) throws ServerException {
         List<Article> articles = new ArrayList<>(getAll());
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
-        checkArticle(article);
-        existsArticle(article, articles);
-        articles.add(article);
+
+        for (Article article : newArticles) {
+            checkArticle(article);
+            existsArticle(article, articles);
+            articles.add(article);
+        }
 
         try{
             writer.writeValue(new File(linkFile), articles);
 
-            return Optional.of(article);
+            return Optional.of(newArticles);
         } catch (Exception ex){
-            System.out.println("Erro ao salvar os dados!");
+            throw new ServerException("Erro ao salvar os dados");
         }
-
-        return Optional.empty();
     }
 
     public List<Article> getAll(){
