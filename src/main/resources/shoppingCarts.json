@@ -55,4 +55,61 @@
     "total" : 3781.0
   } ],
   "total" : 16981.0
+}, {
+  "id" : 2,
+  "tickets" : [ {
+    "id" : 1,
+    "articles" : [ {
+      "productId" : 1,
+      "name" : "Serra de Bancada",
+      "category" : "Ferramentas",
+      "brand" : "FORTGPRO",
+      "price" : 1800.00,
+      "quantity" : 5,
+      "freeShipping" : true,
+      "prestige" : "****"
+    }, {
+      "productId" : 2,
+      "name" : "Furadeira",
+      "category" : "Ferramentas",
+      "brand" : "Black & Decker",
+      "price" : 500,
+      "quantity" : 7,
+      "freeShipping" : true,
+      "prestige" : "****"
+    }, {
+      "productId" : 3,
+      "name" : "Soldadora",
+      "category" : "Ferramentas",
+      "brand" : "Black & Decker",
+      "price" : 350.00,
+      "quantity" : 2,
+      "freeShipping" : true,
+      "prestige" : "***"
+    } ],
+    "total" : 13200.0
+  }, {
+    "id" : 2,
+    "articles" : [ {
+      "productId" : 2,
+      "name" : "Furadeira",
+      "category" : "Ferramentas",
+      "brand" : "Black & Decker",
+      "price" : 500,
+      "quantity" : 5,
+      "freeShipping" : true,
+      "prestige" : "****"
+    }, {
+      "productId" : 5,
+      "name" : "Mini Cama elastica",
+      "category" : "Esportes",
+      "brand" : "Starboard",
+      "price" : 183.00,
+      "quantity" : 7,
+      "freeShipping" : true,
+      "prestige" : "*****"
+    } ],
+    "total" : 3781.0
+  } ],
+  "total" : 16981.0
 } ]

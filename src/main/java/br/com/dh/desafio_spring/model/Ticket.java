@@ -1,5 +1,6 @@
 package br.com.dh.desafio_spring.model;
 
+import br.com.dh.desafio_spring.dto.ClientDTO;
 import br.com.dh.desafio_spring.exception.OutOfStockException;
 import br.com.dh.desafio_spring.repository.ArticleRepo;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,7 @@ public class Ticket {
     private int id;
     private List<Article> articles;
     private BigDecimal total;
+    private ClientDTO client;
 
     public void addArticle(Article article){
         verifyArticles();

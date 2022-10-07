@@ -1,10 +1,12 @@
 package br.com.dh.desafio_spring.repository;
 
+import br.com.dh.desafio_spring.dto.ClientDTO;
 import br.com.dh.desafio_spring.exception.OutOfStockException;
 import br.com.dh.desafio_spring.exception.NotFoundException;
 import br.com.dh.desafio_spring.exception.ServerException;
 import br.com.dh.desafio_spring.model.Article;
 import br.com.dh.desafio_spring.model.ArticleTicket;
+import br.com.dh.desafio_spring.model.Client;
 import br.com.dh.desafio_spring.model.Ticket;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,12 +24,15 @@ public class TicketRepo {
     private final String linkFile = "src/main/resources/tickets.json";
     private ObjectMapper mapper = new ObjectMapper();
 
-    public Optional<Ticket> saveTicket(List<ArticleTicket> articles) throws OutOfStockException {
+    public Optional<Ticket> saveTicket(List<ArticleTicket> articles, int idClient) throws OutOfStockException {
         ArticleRepo articleRepo = new ArticleRepo();
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
 
+        if(clientExists(idClient).isEmpty()) throw new NotFoundException("Cliente não encontrado");
+
         Ticket ticket = new Ticket();
         ticket.setId(getAll().size() + 1);
+        ticket.setClient(clientExists(idClient).get());
 
         articles.stream().forEach(article -> {
             Article articleCompleto = articleRepo.getArticleById(article.getProductId());
@@ -62,5 +67,14 @@ public class TicketRepo {
         return this.getAll().stream()
                 .filter(ticket -> ticket.getId() == id)
                 .findFirst();
+    }
+
+    public Optional<ClientDTO> clientExists(int idClient){
+        ClientRepo clientRepo = new ClientRepo();
+
+        if(clientRepo.findById(idClient).isEmpty())
+            return Optional.empty();
+
+        return Optional.of(new ClientDTO(clientRepo.findById(idClient).get()));
     }
 }
