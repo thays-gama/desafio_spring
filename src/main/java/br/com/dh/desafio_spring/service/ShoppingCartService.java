@@ -69,7 +69,6 @@ public class ShoppingCartService implements IShoppingCart{
         ShoppingCart shoppingCart = new ShoppingCart();
         List<Ticket> ticketList = new ArrayList<>();
         Optional<Client> client = clientRepo.findById(clientId);
-        //checar se cliente existe
 
         if (client.isEmpty()) {
             throw new NotFoundException("Não existe um cliente com o id " +clientId);
@@ -81,8 +80,6 @@ public class ShoppingCartService implements IShoppingCart{
                 validateExistingTicket(id);
                 verifySameCustomerOnTicket(id, clientId);
                 ticketList.add(ticket.get());
-                //checar se o ticket que esta sendo salvo é do mesmo cliente que quer salvar carrinho
-                //checar se o ticket foi salvo em outro carrinho
             }
         });
 
