@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.rmi.ServerException;
 import java.util.List;
 
 @RestController
@@ -16,9 +17,9 @@ public class ArticleController {
     @Autowired
     private IArticle articleService;
 
-    @PostMapping
-    public ResponseEntity<ArticleDTO> saveArticle(@RequestBody Article article){
-        return new ResponseEntity<>(articleService.save(article), HttpStatus.CREATED);
+    @PostMapping("/insert-articles-request")
+    public ResponseEntity<List<ArticleDTO>> saveArticle(@RequestBody List<Article> articles) throws ServerException {
+        return new ResponseEntity<>(articleService.save(articles), HttpStatus.CREATED);
     }
 
     @GetMapping(params = {"category", "freeShipping", "order"})

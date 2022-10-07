@@ -3,10 +3,11 @@ package br.com.dh.desafio_spring.service;
 import br.com.dh.desafio_spring.dto.ArticleDTO;
 import br.com.dh.desafio_spring.model.Article;
 
+import java.rmi.ServerException;
 import java.util.List;
 
 public interface IArticle {
-    ArticleDTO save(Article article);
+    List<ArticleDTO> save(List<Article> article) throws ServerException;
     List<Article> getAll();
     List<Article> findAllByCategoryAndFreeShipping(String category, Boolean freeShipping);
 
