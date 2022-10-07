@@ -83,7 +83,7 @@ public class HandlerExceptions {
     }
     
     @ExceptionHandler(ServerException.class)
-    public ResponseEntity<ExceptionDetails> handlerServerException(ServerException ex){
+    public ResponseEntity<ExceptionDetails> handlerServerException(ServerException ex) {
         ExceptionDetails exceptionDetails = ExceptionDetails.builder()
                 .title("Ocorreu um erro no servidor, tente novamente mais tarde")
                 .message(ex.getMessage())
@@ -92,5 +92,17 @@ public class HandlerExceptions {
                 .build();
 
         return new ResponseEntity<>(exceptionDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    
+    @ExceptionHandler(NotAuthorized.class)
+    public ResponseEntity<ExceptionDetails> handlerNotAuthorized(NotAuthorized ex) {
+        ExceptionDetails exceptionDetails = ExceptionDetails.builder()
+                .title("Não autorizado!")
+                .message(ex.getMessage())
+                .status(HttpStatus.UNAUTHORIZED.value())
+                .timeStamp(LocalDateTime.now())
+                .build();
+
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.UNAUTHORIZED);
     }
 }
