@@ -1,5 +1,5 @@
-<img src="https://files.tecnoblog.net/wp-content/uploads/2021/12/mercado-livre-logo.jpg" alt="exemplo imagem" width="100px" align="right">
-<img src="" alt="exemplo imagem" width="100px" align="right">
+<img src="https://github.com/thays-gama/desafio_spring/blob/imagesReadMe/src/main/resources/images/dh.jpeg" alt="exemplo imagem" width="140px" align="right">
+<img src="https://github.com/thays-gama/desafio_spring/blob/imagesReadMe/src/main/resources/images/meli.png" alt="exemplo imagem" width="100px" align="right">
 
 # 🍃 Desafio Spring - DigitalHouse
 
@@ -8,274 +8,895 @@ Projeto feito no bootcamp [Java BackEnd - MercadoLivre](https://www.mercadolibre
 ## ⭐ Habilidades
 
 - Utilizar as habilidades ministradas em aula pela DigitalHouse.
+  - POO
+  - Java
+  - Spring
+  - REST e RESTful
+  - JSON
+  - Arquitetura MVC
 - Criar uma API utilizando o Spring.
 
 ## 💻 Como iniciar
 
-1. Faça o clone do projeto
-2. Entre no IntelliJ
-3. Abra o projeto
+1. Faça o clone do projeto:
 ```shell
-npm install
+git clone git@github.com:thays-gama/desafio_spring.git
 ```
-4. Inicie a aplicação
+2. Abra o projeto na sua IDE de escolha:
 ```shell
-npm run debug
+mvn spring-boot:run
 ```
 
 # 💡 Documentação da API
 
-## Cadastra um usuário
+### Cadastra um produto
 
 ```http
-  POST /user
+ POST /api/v1/articles/insert-articles-request
 ```
 
-| Corpo da requisição   | Tipo       | Descrição                           |
-| :---------- | :--------- | :---------------------------------- |
-| `displayName, email, password, image` | `json` | **Obrigatório**. Todos os campos do corpo da requisição |
+| Corpo da requisição                                                         | Tipo       | Descrição                           |
+| :--------------------                                                       | :--------- | :---------------------------------- |
+| `productId, name, category, brand, price, quantity, freeShipping, prestige` | `json`     | **Obrigatório**. Todos os campos do corpo da requisição |
 
 **Formato do corpo da requisição**
 ```json
-{
-  "displayName": "Nome da Pessoa",
-  "email": "emaildapessoa@email.com",
-  "password": "123456",
-  "image": "http://4.bp.blogspot.com/_YA50adQ-7vQ/S1gfR_6ufpI/AAAAAAAAAAk/1ErJGgRWZDg/S45/imagem.png"
-}
+[
+      {
+         "productId":23,
+         "name":"Serra de Bancada 1",
+         "category":"Ferramentas",
+         "brand":"FORTGPROp",
+         "price":1800.00,
+         "quantity":5,
+         "freeShipping":true,
+         "prestige":"**"
+      },    
+      {
+         "productId":25,
+         "name":"Furadeira 2",
+         "category":"Ferramentas",
+         "brand":"Black&Decker",
+         "price":500.00,
+         "quantity":7,
+         "freeShipping":true,
+         "prestige":"**"
+      }
+]
 ```
-
-**Retorno em caso de sucesso**
-
-```json
-{
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjo1LCJkaXNwbGF5TmFtZSI6InVzdWFyaW8gZGUgdGVzdGUiLCJlbWFpbCI6InRlc3RlQGVtYWlsLmNvbSIsImltYWdlIjoibnVsbCJ9LCJpYXQiOjE2MjAyNDQxODcsImV4cCI6MTYyMDY3NjE4N30.Roc4byj6mYakYqd9LTCozU1hd9k_Vw5IWKGL4hcCVG8"
-}
-```
-
-> O retorno acima é apenas fictício
-
-
-
-## Retorna todos os usuários
-
-```http
-  GET /user/
-```
-
-**⚠️ Para fazer uma requisição é necessário estar com a chave `Authentication` com o token JWT recebido anteriormente**
 
 **Retorno em caso de sucesso**
 
 ```json
 [
-  {
-    "id": "401465483996",
-    "displayName": "Brett Wiltshire",
-    "email": "brett@email.com",
-    "image": "http://4.bp.blogspot.com/_YA50adQ-7vQ/S1gfR_6ufpI/AAAAAAAAAAk/1ErJGgRWZDg/S45/brett.png"
-  }
+    {
+        "productId": 23,
+        "name": "Serra de Bancada 1",
+        "quantity": 5
+    },
+    {
+        "productId": 25,
+        "name": "Furadeira 2",
+        "quantity": 7
+    }
+]
+```
+> O retorno acima é apenas fictício.
+
+### Retorna todos os produtos
+
+```http
+  GET /api/v1/articles
+```
+
+**Retorno em caso de sucesso**
+
+```json
+[
+    {
+        "productId": 1,
+        "name": "Serra de Bancada",
+        "category": "Ferramentas",
+        "brand": "FORTGPRO",
+        "price": 1800.00,
+        "quantity": 5,
+        "freeShipping": true,
+        "prestige": "****"
+    },
+    {
+        "productId": 2,
+        "name": "Furadeira",
+        "category": "Ferramentas",
+        "brand": "Black & Decker",
+        "price": 500,
+        "quantity": 7,
+        "freeShipping": true,
+        "prestige": "****"
+    }, 
+    ...
 ]
 ```
 
 | Descrição |
 | :--------- |
-| Será retornado um array com todos os usuários do banco de dados |
+| Será retornado um array com todos os produtos do arquivo resources/articles.json |
 
-### Retorna um usuário
+### Retorna os produtos filtrados por categoria.
 
 ```http
-  GET /user/${id}
+  GET /api/v1/articles?category=categoryName
 ```
-
-**⚠️ Para fazer uma requisição é necessário estar com a chave `Authentication` com o token JWT recebido anteriormente**
 
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| `id`      | `string` | **Obrigatório**. O ID do usuário que você quer |
+| `category`  | `String`   | **Obrigatório**. Parâmetros devem ser passados na URL|
 
 **Retorno em caso de sucesso**
 
 ```json
-{
-  "id": "401465483996",
-  "displayName": "Brett Wiltshire",
-  "email": "brett@email.com",
-  "image": "http://4.bp.blogspot.com/_YA50adQ-7vQ/S1gfR_6ufpI/AAAAAAAAAAk/1ErJGgRWZDg/S45/brett.png"
-}
+[
+    {
+        "productId": 9,
+        "name": "Camisa",
+        "category": "Roupas",
+        "brand": "Fila",
+        "price": 79.00,
+        "quantity": 2,
+        "freeShipping": false,
+        "prestige": "***"
+    },
+    {
+        "productId": 10,
+        "name": "Calcas",
+        "category": "Roupas",
+        "brand": "Oakley",
+        "price": 73.00,
+        "quantity": 6,
+        "freeShipping": false,
+        "prestige": "***"
+    },
+    {
+        "productId": 11,
+        "name": "Meias",
+        "category": "Roupas",
+        "brand": "Gonew",
+        "price": 10.00,
+        "quantity": 8,
+        "freeShipping": false,
+        "prestige": "*"
+    },
+    ...
+]
 ```
 
 | Descrição |
-| :--------- |
-| Será retornado o usuário com o id especificado |
+| :-------- |
+| Serão retornados os produtos com a categoria especificada |
 
-### Logar de acordo com o banco de dados
+### Retorna os produtos filtrados por categoria e frete grátis.
 
 ```http
-  POST /login
+  GET api/v1/articles?category=categoryName&freeShipping=false
 ```
 
-| Corpo da requisição   | Tipo       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `email, password`      | `json` | **Obrigatório**. Todos os campos do Corpo da requisição devem existir no banco de dados |
-
-**Formato do corpo da requisição**
-
-```json
-{
-  "email": "email@mail.com",
-  "password": "123456"
-}
-```
+| Corpo da requisição       | Tipo       | Descrição                                   |
+| :------------------------ | :--------- | :------------------------------------------ |
+| `category, freeShipping`  | `String`   | **Obrigatório**. Parâmetros devem ser passados na URL |
 
 **Retorno em caso de sucesso**
 
 ```json
-{
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjo1LCJkaXNwbGF5TmFtZSI6InVzdWFyaW8gZGUgdGVzdGUiLCJlbWFpbCI6InRlc3RlQGVtYWlsLmNvbSIsImltYWdlIjoibnVsbCJ9LCJpYXQiOjE2MjAyNDQxODcsImV4cCI6MTYyMDY3NjE4N30.Roc4byj6mYakYqd9LTCozU1hd9k_Vw5IWKGL4hcCVG8"
-}
+[
+    {
+        "productId": 9,
+        "name": "Camisa",
+        "category": "Roupas",
+        "brand": "Fila",
+        "price": 79.00,
+        "quantity": 2,
+        "freeShipping": false,
+        "prestige": "***"
+    },
+    {
+        "productId": 10,
+        "name": "Calcas",
+        "category": "Roupas",
+        "brand": "Oakley",
+        "price": 73.00,
+        "quantity": 6,
+        "freeShipping": false,
+        "prestige": "***"
+    },
+    {
+        "productId": 11,
+        "name": "Meias",
+        "category": "Roupas",
+        "brand": "Gonew",
+        "price": 10.00,
+        "quantity": 8,
+        "freeShipping": false,
+        "prestige": "*"
+    }
+]
 ```
 
 > O retorno acima é apenas fictício
 
-## Cadastra uma nova categoria
+### Retorna os produtos filtrados por frete grátis e avaliação.
 
 ```http
-  POST /categories
+  GET /api/v1/articles?freeShipping=false&prestige=***
 ```
 
-| Corpo da requisição   | Tipo       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `name` | `json` | **Obrigatório**. O nome da categoria deve ser obrigatório |
-
-**⚠️ Para fazer uma requisição é necessário estar com a chave `Authentication` com o token JWT recebido anteriormente**
-
-**Formato do corpo da requisição**
-
-```json
- {
-   "name": "Ação"
- }
-```
-
-**Retorno em caso de sucesso**
-
-```json
-{
-  "id": 1
-  "name": "Ação"
-}
-```
-
-## Retorna todas as categorias
-
-```http
-  GET /categories
-```
-
-**⚠️ Para fazer uma requisição é necessário estar com a chave `Authentication` com o token JWT recebido anteriormente**
+| Corpo da requisição       | Tipo       | Descrição                                   |
+| :------------------------ | :--------- | :------------------------------------------ |
+| `freeShipping, prestige`  | `String`   | **Obrigatório**. Parâmetros devem ser passados na URL |
 
 **Retorno em caso de sucesso**
 
 ```json
 [
-  {
-    "id": 1,
-    "name": "Escola"
-  },
-  {
-    "id": 2,
-    "name": "Inovação"
-  }
-]
-```
-
-| Descrição |
-| :--------- |
-| Será retornado todas as categorias do Banco de Dados |
-
-### Cadastra uma nova publicação
-
-```http
-  POST /post
-```
-
-| Corpo da requisição   | Tipo       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `title, content, categoryIds` | json | **Obrigatório**. Todos os campos devem ser obrigatórios |
-
-**⚠️ Para fazer uma requisição é necessário estar com a chave `Authentication` com o token JWT recebido anteriormente**
-
-**Formato do corpo da requisição**
-
-```json
-{
-  "title": "Titulo da publicação",
-  "content": "Conteudo da publicação aqui",
-  "categoryIds": [1, 2] //id das categorias criadas anteiormente, deve ser somente um array.
-}
-```
-
-**Retorno em caso de sucesso**
-```json
-{
-  "id": "$id da publicação",
-  "userId": 1, // usuário autenticado
-  "title": "Titulo da publicação",
-  "content": "Conteudo da publicação aqui"
-}
-```
-
-## Retorna todos as publicações
-
-```http
-  GET /categories
-```
-
-**⚠️ Para fazer uma requisição é necessário estar com a chave `Authentication` com o token JWT recebido anteriormente**
-
-**Retorno em caso de sucesso**
-
-```json
-[
-  {
-    "id": 1,
-    "title": "Post do Ano",
-    "content": "Melhor post do ano",
-    "userId": 1,
-    "published": "2011-08-01T19:58:00.000Z",
-    "updated": "2011-08-01T19:58:51.000Z",
-    "user": {
-      "id": 1,
-      "displayName": "Lewis Hamilton",
-      "email": "lewishamilton@gmail.com",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/1/18/Lewis_Hamilton_2017_Malaysia.jpg"
+    {
+        "productId": 9,
+        "name": "Camisa",
+        "category": "Roupas",
+        "brand": "Fila",
+        "price": 79.00,
+        "quantity": 2,
+        "freeShipping": false,
+        "prestige": "***"
     },
-    "categories": [
+    {
+        "productId": 10,
+        "name": "Calcas",
+        "category": "Roupas",
+        "brand": "Oakley",
+        "price": 73.00,
+        "quantity": 6,
+        "freeShipping": false,
+        "prestige": "***"
+    },
+   ...
+]
+```
+
+### Retorna os produtos por ordem alfabética crescente.
+
+```http
+  GET /api/v1/articles?category=categoryName&freeShipping=true&order=0
+```
+
+| Corpo da requisição       | Tipo       | Descrição                                   |
+| :------------------------ | :--------- | :------------------------------------------ |
+| `category, freeShipping`  | `String`   | **Obrigatório**. Parâmetros devem ser passados na URL |
+
+**Retorno em caso de sucesso**
+
+```json
+[
+    {
+        "productId": 2,
+        "name": "Furadeira",
+        "category": "Ferramentas",
+        "brand": "Black & Decker",
+        "price": 500,
+        "quantity": 7,
+        "freeShipping": true,
+        "prestige": "****"
+    },
+    {
+        "productId": 1,
+        "name": "Serra de Bancada",
+        "category": "Ferramentas",
+        "brand": "FORTGPRO",
+        "price": 1800.00,
+        "quantity": 5,
+        "freeShipping": true,
+        "prestige": "****"
+    },
+    {
+        "productId": 3,
+        "name": "Soldadora",
+        "category": "Ferramentas",
+        "brand": "Black & Decker",
+        "price": 350.00,
+        "quantity": 10,
+        "freeShipping": true,
+        "prestige": "***"
+    }
+]
+```
+
+### Retorna os produtos por ordem alfabética decrescente.
+
+```http
+  GET /api/v1/articles?category=categoryName&freeShipping=true&order=1
+```
+
+| Corpo da requisição       | Tipo       | Descrição                                   |
+| :------------------------ | :--------- | :------------------------------------------ |
+| `category, freeShipping`  | `String`   | **Obrigatório**. Parâmetros devem ser passados na URL |
+
+**Retorno em caso de sucesso**
+
+```json
+[
+    {
+        "productId": 3,
+        "name": "Soldadora",
+        "category": "Ferramentas",
+        "brand": "Black & Decker",
+        "price": 350.00,
+        "quantity": 10,
+        "freeShipping": true,
+        "prestige": "***"
+    },
+    {
+        "productId": 1,
+        "name": "Serra de Bancada",
+        "category": "Ferramentas",
+        "brand": "FORTGPRO",
+        "price": 1800.00,
+        "quantity": 5,
+        "freeShipping": true,
+        "prestige": "****"
+    },
+    {
+        "productId": 2,
+        "name": "Furadeira",
+        "category": "Ferramentas",
+        "brand": "Black & Decker",
+        "price": 500,
+        "quantity": 7,
+        "freeShipping": true,
+        "prestige": "****"
+    }
+]
+```
+
+### Retorna os produtos por maior preço.
+
+```http
+  GET /api/v1/articles?category=categoryName&freeShipping=true&order=2
+```
+
+| Corpo da requisição       | Tipo       | Descrição                                   |
+| :------------------------ | :--------- | :------------------------------------------ |
+| `category, freeShipping`  | `String`   | **Obrigatório**. Parâmetros devem ser passados na URL |
+
+**Retorno em caso de sucesso**
+
+```json
+[
+    {
+        "productId": 1,
+        "name": "Serra de Bancada",
+        "category": "Ferramentas",
+        "brand": "FORTGPRO",
+        "price": 1800.00,
+        "quantity": 5,
+        "freeShipping": true,
+        "prestige": "****"
+    },
+    {
+        "productId": 2,
+        "name": "Furadeira",
+        "category": "Ferramentas",
+        "brand": "Black & Decker",
+        "price": 500,
+        "quantity": 7,
+        "freeShipping": true,
+        "prestige": "****"
+    },
+    {
+        "productId": 3,
+        "name": "Soldadora",
+        "category": "Ferramentas",
+        "brand": "Black & Decker",
+        "price": 350.00,
+        "quantity": 10,
+        "freeShipping": true,
+        "prestige": "***"
+    }
+]
+```
+
+### Retorna os produtos por menor preço.
+
+```http
+  GET /api/v1/articles?category=categoryName&freeShipping=true&order=3
+```
+
+| Corpo da requisição       | Tipo       | Descrição                                   |
+| :------------------------ | :--------- | :------------------------------------------ |
+| `category, freeShipping`  | `String`   | **Obrigatório**. Parâmetros devem ser passados na URL |
+
+**Retorno em caso de sucesso**
+
+```json
+[
+    {
+        "productId": 3,
+        "name": "Soldadora",
+        "category": "Ferramentas",
+        "brand": "Black & Decker",
+        "price": 350.00,
+        "quantity": 10,
+        "freeShipping": true,
+        "prestige": "***"
+    },
+    {
+        "productId": 2,
+        "name": "Furadeira",
+        "category": "Ferramentas",
+        "brand": "Black & Decker",
+        "price": 500,
+        "quantity": 7,
+        "freeShipping": true,
+        "prestige": "****"
+    },
+    {
+        "productId": 1,
+        "name": "Serra de Bancada",
+        "category": "Ferramentas",
+        "brand": "FORTGPRO",
+        "price": 1800.00,
+        "quantity": 5,
+        "freeShipping": true,
+        "prestige": "****"
+    }
+]
+```
+
+### Envia uma solicitação de compra
+
+```http
+ POST /api/v1/purchase-request?idClient=2
+```
+
+| Corpo da requisição     | Tipo       | Descrição                           |
+| :--------------------   | :--------- | :---------------------------------- |
+| `idClient `            | `int`      | **Obrigatório**. Parâmetro deve ser passado na URL  |
+
+**Formato do corpo da requisição**
+```json
+[
       {
+         "productId":1,
+         "quantity":1
+       }
+     ]
+```
+
+**Retorno em caso de sucesso**
+
+```json
+{
+    "id": 6,
+    "articles": [
+        {
+            "productId": 1,
+            "name": "Serra de Bancada",
+            "category": "Ferramentas",
+            "brand": "FORTGPRO",
+            "price": 1800.00,
+            "quantity": 1,
+            "freeShipping": true,
+            "prestige": "****"
+        }
+    ],
+    "total": 1800.00,
+    "client": {
+        "fullName": "Paula Santos",
+        "state": "Paraiba"
+    }
+}
+```
+> O retorno acima é apenas fictício.
+
+### Retorna todas as compras
+
+```http
+  GET /api/v1//purchase-request
+```
+
+**Retorno em caso de sucesso**
+
+```json
+[
+    {
         "id": 1,
-        "name": "Inovação"
-      }
-    ]
-  }
+        "articles": [
+            {
+                "productId": 1,
+                "name": "Serra de Bancada",
+                "category": "Ferramentas",
+                "brand": "FORTGPRO",
+                "price": 1800.00,
+                "quantity": 5,
+                "freeShipping": true,
+                "prestige": "****"
+            },
+            {
+                "productId": 2,
+                "name": "Furadeira",
+                "category": "Ferramentas",
+                "brand": "Black & Decker",
+                "price": 500,
+                "quantity": 7,
+                "freeShipping": true,
+                "prestige": "****"
+            },
+            {
+                "productId": 3,
+                "name": "Soldadora",
+                "category": "Ferramentas",
+                "brand": "Black & Decker",
+                "price": 350.00,
+                "quantity": 2,
+                "freeShipping": true,
+                "prestige": "***"
+            }
+        ],
+        "total": 13200.0,
+        "client": null
+    },
+    {
+        "id": 2,
+        "articles": [
+            {
+                "productId": 2,
+                "name": "Furadeira",
+                "category": "Ferramentas",
+                "brand": "Black & Decker",
+                "price": 500,
+                "quantity": 5,
+                "freeShipping": true,
+                "prestige": "****"
+            },
+            {
+                "productId": 5,
+                "name": "Mini Cama elastica",
+                "category": "Esportes",
+                "brand": "Starboard",
+                "price": 183.00,
+                "quantity": 7,
+                "freeShipping": true,
+                "prestige": "*****"
+            }
+        ],
+        "total": 3781.0,
+        "client": null
+    },
+    ...
 ]
 ```
 
 | Descrição |
 | :--------- |
-| Será retornado todas as publicações do Banco de Dados, com sua categoria e o autor |
+| Será retornado um array com todas as compras do arquivo resources/tickets.json |
 
+### Cadastra um cliente
+
+```http
+ POST /api/v1/clients
+```
+
+| Corpo da requisição            | Tipo       | Descrição                           |
+| :--------------------          | :--------- | :---------------------------------- |
+| `name, lastName, email, state` | `json`     | **Obrigatório**. Todos os campos do corpo da requisição |
+
+**Formato do corpo da requisição**
+```json
+{
+    "name": "Giovanna",
+    "lastName": "Almeida",
+    "email": "givanna@almeida.com",
+    "state": "São Paulo"
+}
+```
+
+**Retorno em caso de sucesso**
+
+```json
+{
+    "fullName": "Giovanna Almeida",
+    "state": "São Paulo"
+}
+```
+> O retorno acima é apenas fictício.
+
+### Retorna todos os clientes
+
+```http
+  GET /api/v1/clients
+```
+
+**Retorno em caso de sucesso**
+
+```json
+[
+    {
+        "clientId": 1,
+        "name": "Thays",
+        "lastName": "Gama",
+        "email": "thays@gama.com",
+        "state": "Ceará"
+    },
+    {
+        "clientId": 2,
+        "name": "Paula",
+        "lastName": "Santos",
+        "email": "paula@santos.com",
+        "state": "Paraiba"
+    }
+]
+```
+
+| Descrição |
+| :--------- |
+| Será retornado um array com todos os clientes do arquivo resources/clients.json |
+
+### Retorna um cliente pelo Id
+
+```http
+  GET /api/v1/clients/clientId
+```
+
+**Retorno em caso de sucesso**
+
+```json
+{
+    "fullName": "Giovanna Almeida",
+    "state": "São Paulo"
+}    
+```
+
+### Exclui um cliente pelo Id
+
+```http
+  GET /api/v1/clients/clientId
+```
+
+**Retorno em caso de sucesso**
+
+```Status
+204 - No Content
+```
+
+### Retorna o cliente por Id.
+
+```http
+  GET api/v1/clients?state=ceará
+```
+
+| Corpo da requisição       | Tipo       | Descrição                                   |
+| :------------------------ | :--------- | :------------------------------------------ |
+| ` state `                 | `String`   | **Obrigatório**. Parâmetro deve ser passado na URL |
+
+**Retorno em caso de sucesso**
+
+```json
+[
+[
+    {
+        "clientId": 1,
+        "name": "Thays",
+        "lastName": "Gama",
+        "email": "thays@gama.com",
+        "state": "Ceará"
+    }
+]
+]
+```
+### Cadastra um carrinho de compras
+
+```http
+ POST /api/v1/shoppingCarts?clientId=1
+```
+
+| Corpo da requisição            | Tipo       | Descrição                           |
+| :--------------------          | :--------- | :---------------------------------- |
+| `id dos Tickets`.              | `array`     | **Obrigatório**. Todos os campos do corpo da requisição |
+
+**Formato do corpo da requisição**
+```array
+[1,2]
+```
+
+**Retorno em caso de sucesso**
+
+```json
+{
+    "id": 4,
+    "tickets": [
+        {
+            "id": 1,
+            "articles": [
+                {
+                    "productId": 1,
+                    "name": "Serra de Bancada",
+                    "category": "Ferramentas",
+                    "brand": "FORTGPRO",
+                    "price": 1800.00,
+                    "quantity": 5,
+                    "freeShipping": true,
+                    "prestige": "****"
+                },
+                {
+                    "productId": 2,
+                    "name": "Furadeira",
+                    "category": "Ferramentas",
+                    "brand": "Black & Decker",
+                    "price": 500,
+                    "quantity": 7,
+                    "freeShipping": true,
+                    "prestige": "****"
+                },
+                {
+                    "productId": 3,
+                    "name": "Soldadora",
+                    "category": "Ferramentas",
+                    "brand": "Black & Decker",
+                    "price": 350.00,
+                    "quantity": 2,
+                    "freeShipping": true,
+                    "prestige": "***"
+                }
+            ],
+            "total": 13200.0,
+            "client": null
+        },
+        {
+            "id": 2,
+            "articles": [
+                {
+                    "productId": 2,
+                    "name": "Furadeira",
+                    "category": "Ferramentas",
+                    "brand": "Black & Decker",
+                    "price": 500,
+                    "quantity": 5,
+                    "freeShipping": true,
+                    "prestige": "****"
+                },
+                {
+                    "productId": 5,
+                    "name": "Mini Cama elastica",
+                    "category": "Esportes",
+                    "brand": "Starboard",
+                    "price": 183.00,
+                    "quantity": 7,
+                    "freeShipping": true,
+                    "prestige": "*****"
+                }
+            ],
+            "total": 3781.0,
+            "client": null
+        }
+    ],
+    "total": 16981.0,
+    "client": {
+        "clientId": 1,
+        "name": "Thays",
+        "lastName": "Gama",
+        "email": "thays@gama.com",
+        "state": "Ceará"
+    }
+}
+```
+> O retorno acima é apenas fictício.
+
+### Retorna todos os carrinhos
+
+```http
+  GET /api/v1/shoppingCarts
+```
+
+**Retorno em caso de sucesso**
+
+```json
+[
+    {
+        "id": 1,
+        "tickets": [
+            {
+                "id": 1,
+                "articles": [
+                    {
+                        "productId": 1,
+                        "name": "Serra de Bancada",
+                        "category": "Ferramentas",
+                        "brand": "FORTGPRO",
+                        "price": 1800.00,
+                        "quantity": 5,
+                        "freeShipping": true,
+                        "prestige": "****"
+                    },
+                    {
+                        "productId": 2,
+                        "name": "Furadeira",
+                        "category": "Ferramentas",
+                        "brand": "Black & Decker",
+                        "price": 500,
+                        "quantity": 7,
+                        "freeShipping": true,
+                        "prestige": "****"
+                    },
+                    {
+                        "productId": 3,
+                        "name": "Soldadora",
+                        "category": "Ferramentas",
+                        "brand": "Black & Decker",
+                        "price": 350.00,
+                        "quantity": 2,
+                        "freeShipping": true,
+                        "prestige": "***"
+                    }
+                ],
+                "total": 13200.0,
+                "client": null
+            },
+            {
+                "id": 2,
+                "articles": [
+                    {
+                        "productId": 2,
+                        "name": "Furadeira",
+                        "category": "Ferramentas",
+                        "brand": "Black & Decker",
+                        "price": 500,
+                        "quantity": 5,
+                        "freeShipping": true,
+                        "prestige": "****"
+                    },
+                    {
+                        "productId": 5,
+                        "name": "Mini Cama elastica",
+                        "category": "Esportes",
+                        "brand": "Starboard",
+                        "price": 183.00,
+                        "quantity": 7,
+                        "freeShipping": true,
+                        "prestige": "*****"
+                    }
+                ],
+                "total": 3781.0,
+                "client": null
+            }
+        ],
+        "total": 16981.0,
+        "client": null
+    },
+    ...
+]
+```
+
+| Descrição |
+| :--------- |
+| Será retornado um array com todos os produtos do arquivo resources/articles.json |
+
+### Exclui um carrinho pelo Id
+
+```http
+  GET /api/v1/shoppingCarts/2
+```
+
+**Retorno em caso de sucesso**
+
+```Status
+204 - No Content
+```
 
 
 ## Feito Com:
-[![IDE](https://img.shields.io/badge/Visual_studio_code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)](https://code.visualstudio.com/)
-[![NODEJS](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/en/)
-[![SEQUELIZE](https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white)](https://sequelize.org/master/)
-[![MYSQL](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
+
+[![IDE](https://img.shields.io/badge/IntelliJ_IDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white)](https://www.jetbrains.com/idea/)
+[![IDE](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)](https://www.java.com/pt-BR/)
+[![IDE](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)](https://spring.io/)
 
 
-### Contato
 
-[![Linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/michaelcaxias/)
+
 
 <p align="center">Copyright © 2021 Michael Caxias</p>
