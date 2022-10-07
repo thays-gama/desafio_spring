@@ -1,0 +1,436 @@
+{
+	"info": {
+		"_postman_id": "5118809a-4423-4a9f-b1e3-a654027d2f9a",
+		"name": "MELI / DH",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19488930"
+	},
+	"item": [
+		{
+			"name": "Desafios",
+			"item": [
+				{
+					"name": "Article",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n[\n\n      {\n\n         \"productId\":23,\n\n         \"name\":\"Serra de Bancada 1\",\n\n         \"category\":\"Ferramentas\",\n\n         \"brand\":\"FORTGPROp\",\n\n         \"price\":1800.00,\n\n         \"quantity\":5,\n\n         \"freeShipping\":true,\n\n         \"prestige\":\"****\"\n\n      },    \n\n      {\n\n         \"productId\":25,\n\n         \"name\":\"Furadeira 2\",\n\n         \"category\":\"Ferramentas\",\n\n         \"brand\":\"Black&Decker\",\n\n         \"price\":500.00,\n\n         \"quantity\":7,\n\n         \"freeShipping\":true,\n\n         \"prestige\":\"****\"\n\n      }\n\n   ]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/insert-articles-request",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"insert-articles-request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindAllArticles",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/articles/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"articles",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindArticleByCategory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/articles?category=teste2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"articles"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "teste2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindArticleByCategory&FreeShipping",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/articles?category=roupas&freeShipping=false",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"articles"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "roupas"
+								},
+								{
+									"key": "freeShipping",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindArticleByCategory&FreeShippingSorted",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/articles?category=ferramentas&freeShipping=true&order=1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"articles"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "ferramentas"
+								},
+								{
+									"key": "freeShipping",
+									"value": "true"
+								},
+								{
+									"key": "order",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindArticleByFreeShipping&Prestige",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/articles?freeShipping=true&prestige=****",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"articles"
+							],
+							"query": [
+								{
+									"key": "freeShipping",
+									"value": "true"
+								},
+								{
+									"key": "prestige",
+									"value": "****"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindAllTickets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/purchase-request",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"purchase-request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ticket",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n\n      {\n\n         \"productId\":1,\n\n         \"quantity\":1\n\n       }\n\n     ]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/purchase-request?idClient=2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"purchase-request"
+							],
+							"query": [
+								{
+									"key": "idClient",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addClient",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Giovanna\",\n    \"lastName\": \"Almeida\",\n    \"email\": \"givanna@almeida.com\",\n    \"state\": \"São Paulo\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/clients",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAllClients",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/clients",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findClientById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/clients/5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"clients",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteClientById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/clients/4",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"clients",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findClientsByState",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/clients?state=ceará",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"clients"
+							],
+							"query": [
+								{
+									"key": "state",
+									"value": "ceará"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAllShoppingCarts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/shoppingCarts",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"shoppingCarts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addShoppingCart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[1,2]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/shoppingCarts?clientId=1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"shoppingCarts"
+							],
+							"query": [
+								{
+									"key": "clientId",
+									"value": "1"
+								},
+								{
+									"key": "ticketId",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteShoppingCartById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/shoppingCarts/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"shoppingCarts",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "local",
+			"value": "http://localhost:8080/"
+		}
+	]
+}
