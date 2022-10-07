@@ -89,8 +89,5 @@
     "prestige" : "****"
   } ],
   "total" : 1800.00,
-  "client" : {
-    "fullName" : "Paula Santos",
-    "state" : "Paraiba"
-  }
+  "client" : null
 } ]

@@ -21,6 +21,7 @@ public class ShoppingCart {
     private int id;
     private List<Ticket> tickets;
     private BigDecimal total;
+    private Client client;
 
     /**
      * Soma o total de todos os tickets dentro do objeto e atribui ao total do Carrinho de Compras
