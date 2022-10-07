@@ -1,6 +1,7 @@
 package br.com.dh.desafio_spring.service;
 
 import br.com.dh.desafio_spring.exception.AlreadyExistingException;
+import br.com.dh.desafio_spring.exception.NotAuthorized;
 import br.com.dh.desafio_spring.exception.NotFoundException;
 import br.com.dh.desafio_spring.model.Client;
 import br.com.dh.desafio_spring.model.ShoppingCart;
@@ -51,6 +52,14 @@ public class ShoppingCartService implements IShoppingCart{
         });
     }
 
+    private void verifySameCustomerOnTicket(Integer id, Integer clientId) {
+        Optional<Ticket> ticket = ticketRepo.findById(id);
+
+        if (ticket.isPresent() && ticket.get().getId() != clientId) {
+            throw new NotAuthorized("Não é possível efetuar uma compra com um ticket de outro cliente");
+        }
+    }
+
     /**
      * @param ticketId Id dos tickets que devem ser associados ao carinhos
      * @return Carrinho de compras salvo com a lista de tickets inseridos
@@ -70,6 +79,7 @@ public class ShoppingCartService implements IShoppingCart{
             Optional<Ticket> ticket = ticketRepo.findById(id);
             if (ticket.isPresent()) {
                 validateExistingTicket(id);
+                verifySameCustomerOnTicket(id, clientId);
                 ticketList.add(ticket.get());
                 //checar se o ticket que esta sendo salvo é do mesmo cliente que quer salvar carrinho
                 //checar se o ticket foi salvo em outro carrinho
