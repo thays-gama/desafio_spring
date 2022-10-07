@@ -17,6 +17,7 @@ public class ShoppingCart {
     private int id;
     private List<Ticket> tickets;
     private BigDecimal total;
+    private Client client;
 
     public void sumTickets(){
         BigDecimal result = BigDecimal.ZERO;
