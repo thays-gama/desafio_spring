@@ -10,10 +10,4 @@
   "lastName" : "Santos",
   "email" : "paula@santos.com",
   "state" : "Paraiba"
-}, {
-  "clientId" : 4,
-  "name" : "Giovanna",
-  "lastName" : "Almeida",
-  "email" : "givanna@almeida.com",
-  "state" : "São Paulo"
 } ]
