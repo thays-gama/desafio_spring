@@ -1,5 +1,6 @@
 package br.com.dh.desafio_spring.service;
 
+import br.com.dh.desafio_spring.exception.NotFoundException;
 import br.com.dh.desafio_spring.model.ShoppingCart;
 import br.com.dh.desafio_spring.model.Ticket;
 import br.com.dh.desafio_spring.repository.ShoppingCartRepo;
@@ -43,7 +44,13 @@ public class ShoppingCartService implements IShoppingCart{
 
     @Override
     public List<ShoppingCart> findAll() {
-        return repo.getAll();
+        List<ShoppingCart> shoppingCarts = repo.getAll();
+
+        if (shoppingCarts.isEmpty()) {
+            throw new NotFoundException("Carrinho de compras não encontrado");
+        }
+
+        return shoppingCarts;
     }
 
     @Override
