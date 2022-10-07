@@ -26,8 +26,8 @@ public class ShoppingCartController {
      * @since 1.0
      */
     @PostMapping
-    public ResponseEntity<ShoppingCart> saveShoppingCart(@RequestParam Integer[] ticketId){
-        return new ResponseEntity<>(shoppingCartService.save(ticketId), HttpStatus.CREATED);
+    public ResponseEntity<ShoppingCart> saveShoppingCart(@RequestBody Integer[] ticketId, @RequestParam Integer clientId){
+        return new ResponseEntity<>(shoppingCartService.save(ticketId, clientId), HttpStatus.CREATED);
     }
 
     /**
