@@ -18,8 +18,8 @@ public class TicketController {
     private ITicket ticketService;
 
     @PostMapping
-    public ResponseEntity<Ticket> saveTicket(@RequestBody List<ArticleTicket> articles){
-        return new ResponseEntity<>(ticketService.saveTicket(articles).get(), HttpStatus.CREATED);
+    public ResponseEntity<Ticket> saveTicket(@RequestBody List<ArticleTicket> articles, @RequestParam int idClient){
+        return new ResponseEntity<>(ticketService.saveTicket(articles, idClient).get(), HttpStatus.CREATED);
     }
 
     @GetMapping

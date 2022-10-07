@@ -28,7 +28,8 @@
     "freeShipping" : true,
     "prestige" : "***"
   } ],
-  "total" : 13200.0
+  "total" : 13200.0,
+  "client" : null
 }, {
   "id" : 2,
   "articles" : [ {
@@ -50,7 +51,8 @@
     "freeShipping" : true,
     "prestige" : "*****"
   } ],
-  "total" : 3781.0
+  "total" : 3781.0,
+  "client" : null
 }, {
   "id" : 3,
   "articles" : [ {
@@ -72,5 +74,20 @@
     "freeShipping" : true,
     "prestige" : "*****"
   } ],
-  "total" : 2816.0
+  "total" : 2816.0,
+  "client" : null
+}, {
+  "id" : 4,
+  "articles" : [ {
+    "productId" : 1,
+    "name" : "Serra de Bancada",
+    "category" : "Ferramentas",
+    "brand" : "FORTGPRO",
+    "price" : 1800.00,
+    "quantity" : 1,
+    "freeShipping" : true,
+    "prestige" : "****"
+  } ],
+  "total" : 1800.00,
+  "client" : null
 } ]

@@ -8,6 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ITicket {
-    Optional<Ticket> saveTicket(List<ArticleTicket> articles) throws NotFoundException;
+    Optional<Ticket> saveTicket(List<ArticleTicket> articles, int idClient) throws NotFoundException;
     List<Ticket> getAll();
 }

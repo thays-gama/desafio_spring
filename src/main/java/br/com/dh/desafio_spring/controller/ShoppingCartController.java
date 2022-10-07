@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Classe que representa o controller do Carrinho de Compras
+ * @author thays-gama
+ */
 @RestController
 @RequestMapping("/api/v1/shoppingCarts")
 public class ShoppingCartController {
@@ -16,16 +20,29 @@ public class ShoppingCartController {
     @Autowired
     private IShoppingCart shoppingCartService;
 
+    /**
+     * @param ticketId ticket Ids a serem associados ao carrinho de compras
+     * @return carrinho de compras salvo
+     * @since 1.0
+     */
     @PostMapping
-    public ResponseEntity<ShoppingCart> saveShoppingCart(@RequestParam Integer[] ticketId){
-        return new ResponseEntity<>(shoppingCartService.save(ticketId), HttpStatus.CREATED);
+    public ResponseEntity<ShoppingCart> saveShoppingCart(@RequestBody Integer[] ticketId, @RequestParam Integer clientId){
+        return new ResponseEntity<>(shoppingCartService.save(ticketId, clientId), HttpStatus.CREATED);
     }
 
+    /**
+     * @return lista com todos os carrinhos de compras salvos
+     * @since 1.0
+     */
     @GetMapping
     public ResponseEntity<List<ShoppingCart>> findAllShoppingCart(){
         return new ResponseEntity<>(shoppingCartService.findAll(), HttpStatus.OK);
     }
 
+    /**
+     * @param id id do carrinho a ser deletado
+     * @since 1.0
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> findAllShoppingCart(@PathVariable Integer id){
         shoppingCartService.deleteById(id);
