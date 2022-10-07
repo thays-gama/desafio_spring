@@ -133,4 +133,31 @@
   "quantity" : 0,
   "freeShipping" : true,
   "prestige" : "*****"
+}, {
+  "productId" : 15,
+  "name" : "Fone de Ouvido",
+  "category" : "Informática",
+  "brand" : "SAMSUNG",
+  "price" : 2000.00,
+  "quantity" : 5,
+  "freeShipping" : false,
+  "prestige" : "*****"
+}, {
+  "productId" : 16,
+  "name" : "Celular",
+  "category" : "Informática",
+  "brand" : "SAMSUNG",
+  "price" : 2000.00,
+  "quantity" : 5,
+  "freeShipping" : false,
+  "prestige" : "*****"
+}, {
+  "productId" : 17,
+  "name" : "Celular",
+  "category" : "Informática",
+  "brand" : "XIAOMI",
+  "price" : 2000.00,
+  "quantity" : 5,
+  "freeShipping" : false,
+  "prestige" : "*****"
 } ]

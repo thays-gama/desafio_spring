@@ -1,6 +1,6 @@
 package br.com.dh.desafio_spring.repository;
 
-import br.com.dh.desafio_spring.exception.NotFoundException;
+import br.com.dh.desafio_spring.exception.*;
 import br.com.dh.desafio_spring.model.Article;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,10 +20,12 @@ public class ArticleRepo {
     private ObjectMapper mapper = new ObjectMapper();
 
 
-    public Optional<Article> saveArticle(Article article){
+
+    public Optional<Article> saveArticle(Article article)  {
         List<Article> articles = new ArrayList<>(getAll());
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
-
+        checkArticle(article);
+        existsArticle(article, articles);
         articles.add(article);
 
         try{
@@ -73,6 +75,37 @@ public class ArticleRepo {
                 .collect(Collectors.toList());
     }
 
+    public void existsArticle(Article newArticle, List<Article> articles){
+        for (Article article : articles) {
+            if (article.getProductId() == newArticle.getProductId())
+                throw new AlreadyExistingException("Produto já cadastrado!");
+            if (article.getName().equalsIgnoreCase(newArticle.getName()) && article.getBrand()
+                    .equalsIgnoreCase(newArticle.getBrand()))
+                throw new AlreadyExistingException(" Nome e marca já cadastrados!");
+        }
+    }
+
+    public void checkArticle (Article newArticle)  {
+        String voidFields = "";
+        if (newArticle.getProductId() <= 0)
+            voidFields += "productId ";
+        if (newArticle.getName() == null)
+            voidFields += "name ";
+        if (newArticle.getCategory() == null)
+            voidFields += "category ";
+        if (newArticle.getBrand() == null)
+            voidFields += "brand ";
+        if (newArticle.getPrice() == null || newArticle.getPrice().doubleValue()<=0)
+            voidFields += "price ";
+        if (newArticle.getQuantity() <= 0)
+            voidFields += "quantity ";
+        if (newArticle.getPrestige() == null )
+            voidFields += "prestige ";
+        if (!voidFields.isEmpty())
+            throw new SpecificFieldException("Esse(s) campo(s) precisa(m) ser preeenchido(s): " + voidFields);
+
+    }
+    
     public Article getArticleById(int productId) {
         if(getAll().size() >= productId)
             return getAll().get(productId - 1);
