@@ -32,7 +32,7 @@ public class ShoppingCartService implements IShoppingCart{
         shoppingcCarts.stream().forEach((shoppingCart) -> {
             shoppingCart.getTickets().stream().forEach((ticket) -> {
                 if (ticket.getId() == id) {
-                    throw new AlreadyExistingException("Não é possível efetuar uma compra com o mesmo ticket");
+                    throw new AlreadyExistingException("Não é possível efetuar uma compra com um mesmo ticket");
                 }
             });
         });
@@ -45,7 +45,9 @@ public class ShoppingCartService implements IShoppingCart{
 
         Arrays.stream(ticketId).forEach(id -> {
             Optional<Ticket> ticket = ticketRepo.findById(id);
-            if(ticket.isPresent())
+            if (ticket.isPresent())
+                validateExistingTicket(id);
+
                 ticketList.add(ticket.get());
         });
 
